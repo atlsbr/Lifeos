@@ -310,52 +310,90 @@ textarea { resize: vertical; min-height: 80px; }
 .notes-empty-icon { font-size: 48px; opacity: 0.5; }
 .notes-word-count { padding: 8px 24px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; display: flex; justify-content: space-between; }
 
-/* ══════════ SLEEP MODE ══════════ */
-#sleep-overlay { position: fixed; inset: 0; z-index: 8000; background: #000; display: none; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-#sleep-overlay.active { display: flex; }
-.sleep-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 100% 70% at 50% 100%, rgba(5,10,30,1) 0%, #000 70%); }
-.sleep-stars { position: absolute; inset: 0; overflow: hidden; }
-.sleep-star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--dur, 3s) ease-in-out infinite; animation-delay: var(--delay, 0s); }
-@keyframes twinkle { 0%, 100% { opacity: 0.08; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.4); } }
-.sleep-moon { position: absolute; top: 6%; right: 10%; font-size: 56px; animation: moonFloat 10s ease-in-out infinite; filter: drop-shadow(0 0 40px rgba(255,220,80,0.35)); z-index: 2; pointer-events: none; }
-@keyframes moonFloat { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-14px) rotate(4deg); } }
-
-/* Sound bar */
-.sleep-sound-bar { position: absolute; top: 0; left: 0; right: 0; padding: 14px 20px; background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.04); z-index: 10; text-align: center; }
-.sleep-sound-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); cursor: pointer; font-size: 11px; transition: all 0.2s; backdrop-filter: blur(8px); }
-.sleep-sound-btn:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
-.sleep-sound-btn.active { background: rgba(100,180,255,0.15); border-color: rgba(100,180,255,0.4); color: rgba(150,200,255,0.9); }
-
-.sleep-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 680px; padding: 0 24px; margin-top: 90px; }
-.sleep-title { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.2); margin-bottom: 10px; }
-.sleep-timer-display { font-family: 'Syne', sans-serif; font-size: 72px; font-weight: 800; letter-spacing: -4px; color: rgba(255,255,255,0.8); line-height: 1; margin-bottom: 6px; text-shadow: 0 0 80px rgba(100,150,255,0.25); }
-.sleep-phase { font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 20px; font-family: 'DM Mono', monospace; letter-spacing: 3px; text-transform: uppercase; }
-
-/* Wealth counter */
-.sleep-wealth-counter { background: rgba(0,0,0,0.4); border: 1px solid rgba(100,255,120,0.12); border-radius: 20px; padding: 16px 28px; text-align: center; backdrop-filter: blur(20px); margin-bottom: 16px; width: 100%; max-width: 420px; }
-.sleep-wealth-title { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(100,255,120,0.5); margin-bottom: 6px; font-family: 'DM Mono', monospace; }
-.sleep-wealth-amount { font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 800; letter-spacing: -2px; color: rgba(100,255,140,0.9); text-shadow: 0 0 40px rgba(50,255,100,0.3); line-height: 1; }
-.sleep-wealth-rate { font-size: 11px; color: rgba(100,255,120,0.4); font-family: 'DM Mono', monospace; margin-top: 4px; }
-.sleep-sheep-track { min-height: 44px; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; margin-top: 10px; gap: 0; position: relative; width: 100%; }
-.sleep-sheep { position: absolute; font-size: 22px; white-space: nowrap; animation: sheepWalk linear forwards; }
-@keyframes sheepWalk { from { left: -60px; opacity: 0; } 10% { opacity: 1; } 85% { opacity: 1; } to { left: calc(100% + 20px); opacity: 0; } }
-.sleep-coin-burst { position: absolute; pointer-events: none; z-index: 20; font-size: 18px; animation: coinBurst 1.2s ease-out forwards; }
-@keyframes coinBurst { 0% { transform: scale(0) translateY(0); opacity: 1; } 60% { transform: scale(1.2) translateY(-40px); opacity: 1; } 100% { transform: scale(0.8) translateY(-80px); opacity: 0; } }
-
-.sleep-affirmation { text-align: center; max-width: 480px; }
-.sleep-affirmation-text { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255,255,255,0.6); line-height: 1.5; letter-spacing: -0.2px; transition: opacity 1.2s ease; }
-.sleep-breath-guide { display: flex; align-items: center; gap: 16px; }
-.sleep-breath-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(120,180,255,0.5); animation: sleepPulse 4s ease-in-out infinite; }
-@keyframes sleepPulse { 0%, 100% { transform: scale(1); opacity: 0.3; box-shadow: 0 0 0 0 rgba(120,180,255,0); } 50% { transform: scale(2.2); opacity: 0.8; box-shadow: 0 0 20px rgba(120,180,255,0.4); } }
-.sleep-breath-text { font-size: 10px; color: rgba(255,255,255,0.2); font-family: 'DM Mono', monospace; letter-spacing: 2px; }
-.sleep-progress-bar { width: 100%; max-width: 380px; height: 2px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
-.sleep-progress-fill { height: 100%; background: linear-gradient(90deg, rgba(80,160,255,0.4), rgba(150,100,255,0.4), rgba(80,255,150,0.4)); border-radius: 2px; transition: width 1s linear; }
-
-.sleep-controls-bar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; flex-wrap: wrap; justify-content: center; }
-.sleep-ctrl-btn { padding: 8px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4); cursor: pointer; font-size: 11px; transition: all 0.2s; backdrop-filter: blur(10px); }
-.sleep-ctrl-btn:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); }
-.sleep-close-btn { position: absolute; top: 14px; right: 16px; z-index: 20; width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.3); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-.sleep-close-btn:hover { color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.1); }
+/* ══════════════════════════════════════════
+   SLEEP MODE — PREMIUM RESPONSIVE
+══════════════════════════════════════════ */
+#sleep-overlay { position:fixed;inset:0;z-index:8000;background:#020510;display:none;flex-direction:column;align-items:center;overflow:hidden;font-family:'DM Sans',sans-serif; }
+#sleep-overlay.active { display:flex; }
+.sleep-bg { position:absolute;inset:0;background:radial-gradient(ellipse 120% 60% at 50% 110%,rgba(2,8,28,1) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 20% 20%,rgba(0,20,60,.6) 0%,transparent 50%),radial-gradient(ellipse 40% 30% at 80% 10%,rgba(20,0,60,.4) 0%,transparent 50%); }
+.sleep-stars { position:absolute;inset:0;overflow:hidden;pointer-events:none; }
+.sleep-star { position:absolute;border-radius:50%;background:white;animation:twinkle var(--dur,3s) ease-in-out infinite;animation-delay:var(--delay,0s); }
+@keyframes twinkle { 0%,100%{opacity:.05;transform:scale(1)} 50%{opacity:.85;transform:scale(1.5)} }
+.sleep-moon { position:absolute;top:5%;right:8%;font-size:clamp(36px,7vw,56px);animation:moonFloat 12s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(255,220,80,.3));z-index:2;pointer-events:none; }
+@keyframes moonFloat { 0%,100%{transform:translateY(0) rotate(-8deg)} 50%{transform:translateY(-12px) rotate(5deg)} }
+#sleep-main-canvas { position:absolute;inset:0;opacity:.1;pointer-events:none;z-index:1; }
+.sleep-sound-bar { position:relative;z-index:10;width:100%;padding:clamp(8px,2vw,12px) clamp(12px,4vw,20px);background:rgba(0,0,0,.75);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.04);text-align:center;flex-shrink:0; }
+.sleep-sound-label { font-size:clamp(9px,2vw,10px);letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:7px; }
+.sleep-sound-btns { display:flex;gap:5px;flex-wrap:wrap;justify-content:center; }
+.sleep-sound-btn { padding:clamp(5px,1.5vw,7px) clamp(9px,2.5vw,13px);border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.38);cursor:pointer;font-size:clamp(10px,2.5vw,11px);transition:all .2s;white-space:nowrap; }
+.sleep-sound-btn:hover,.sleep-sound-btn:active { background:rgba(255,255,255,.1);color:rgba(255,255,255,.8); }
+.sleep-sound-btn.active { background:rgba(80,180,255,.15);border-color:rgba(80,180,255,.4);color:rgba(140,200,255,.95); }
+.sleep-vol-row { display:flex;align-items:center;gap:8px;justify-content:center;margin-top:7px;flex-wrap:wrap; }
+.sleep-vol-row span { font-size:12px;color:rgba(255,255,255,.22); }
+#sleep-volume { width:clamp(90px,28vw,150px);accent-color:rgba(100,180,255,.7); }
+.sleep-bg-hint { font-size:clamp(9px,2vw,10px);color:rgba(255,255,255,.14);margin-top:4px;letter-spacing:.5px; }
+.sleep-scroll { flex:1;overflow-y:auto;overflow-x:hidden;width:100%;display:flex;flex-direction:column;align-items:center;padding:clamp(10px,2.5vw,20px) clamp(12px,4vw,20px) 80px;gap:clamp(8px,2vw,14px);position:relative;z-index:2; }
+.sleep-scroll::-webkit-scrollbar { display:none; }
+.sleep-header { text-align:center; }
+.sleep-title { font-size:clamp(9px,2.2vw,11px);letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.18);margin-bottom:3px; }
+.sleep-timer-display { font-family:'Syne',sans-serif;font-size:clamp(48px,13vw,76px);font-weight:800;letter-spacing:-4px;color:rgba(255,255,255,.82);line-height:1;text-shadow:0 0 60px rgba(100,140,255,.2); }
+.sleep-phase { font-size:clamp(10px,2.5vw,11px);color:rgba(255,255,255,.25);font-family:'DM Mono',monospace;letter-spacing:3px;text-transform:uppercase;margin-top:3px; }
+.sleep-bank-scene { width:100%;max-width:440px;background:rgba(0,0,0,.6);border:1px solid rgba(80,255,140,.1);border-radius:clamp(12px,3vw,20px);overflow:hidden;box-shadow:0 0 60px rgba(40,200,100,.06),inset 0 1px 0 rgba(255,255,255,.04); }
+.sleep-bank-header { background:rgba(0,20,10,.8);padding:clamp(9px,2.5vw,14px) clamp(14px,3.5vw,20px) clamp(7px,2vw,10px);border-bottom:1px solid rgba(80,255,140,.07);display:flex;align-items:center;gap:9px; }
+.sleep-bank-icon { font-size:clamp(18px,4.5vw,22px);flex-shrink:0; }
+.sleep-bank-name { font-size:clamp(9px,2.5vw,11px);color:rgba(80,255,140,.55);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace; }
+.sleep-bank-live { margin-left:auto;font-size:10px;color:rgba(80,255,140,.65);font-family:'DM Mono',monospace;display:flex;align-items:center;gap:5px; }
+.sleep-bank-live::before { content:'';width:6px;height:6px;border-radius:50%;background:rgba(80,255,140,.8);animation:livePulse 1.4s ease-in-out infinite; }
+@keyframes livePulse { 0%,100%{opacity:.35} 50%{opacity:1} }
+.sleep-balance-area { padding:clamp(10px,2.5vw,18px) clamp(14px,3.5vw,20px) clamp(6px,1.5vw,10px); }
+.sleep-balance-label { font-size:clamp(9px,2.2vw,11px);color:rgba(255,255,255,.22);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:3px; }
+.sleep-balance-value { font-family:'Syne',sans-serif;font-size:clamp(30px,8vw,50px);font-weight:800;letter-spacing:-2px;color:rgba(80,255,140,.95);text-shadow:0 0 40px rgba(40,255,100,.35);line-height:1;transition:transform .28s cubic-bezier(.34,1.56,.64,1); }
+.sleep-balance-value.pop { transform:scale(1.07); }
+.sleep-rate-badge { display:inline-flex;align-items:center;gap:5px;margin-top:5px;padding:3px 10px;border-radius:20px;background:rgba(80,255,140,.07);border:1px solid rgba(80,255,140,.14);font-size:clamp(10px,2.5vw,11px);color:rgba(80,255,140,.55);font-family:'DM Mono',monospace; }
+.sleep-rate-badge::before { content:'+';color:rgba(80,255,140,.75);font-weight:700; }
+.sleep-tx-feed { border-top:1px solid rgba(255,255,255,.04);max-height:clamp(90px,20vw,130px);overflow:hidden;position:relative; }
+.sleep-tx-feed::after { content:'';position:absolute;bottom:0;left:0;right:0;height:38px;background:linear-gradient(transparent,rgba(0,0,0,.55));pointer-events:none; }
+.sleep-tx-list { display:flex;flex-direction:column;padding:clamp(5px,1.5vw,9px) clamp(14px,3.5vw,20px);gap:4px; }
+.sleep-tx-item { display:flex;align-items:center;gap:8px;font-size:clamp(10px,2.5vw,12px);opacity:0;animation:txSlideIn .45s ease forwards; }
+@keyframes txSlideIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.sleep-tx-dot { width:5px;height:5px;border-radius:50%;background:rgba(80,255,140,.7);flex-shrink:0;box-shadow:0 0 5px rgba(80,255,140,.5); }
+.sleep-tx-desc { flex:1;color:rgba(255,255,255,.38); }
+.sleep-tx-val { color:rgba(80,255,140,.85);font-family:'DM Mono',monospace;font-weight:600; }
+.sleep-fence-area { padding:0;border-top:1px solid rgba(255,255,255,.04);position:relative;height:clamp(64px,14vw,80px);overflow:visible; }
+.sleep-fence-bg { position:absolute;bottom:0;left:0;right:0;height:100%;background:linear-gradient(transparent 60%,rgba(0,30,10,.5)); }
+.sleep-fence { position:absolute;bottom:10px;left:0;right:0;height:3px;background:rgba(80,255,140,.18); }
+.sleep-fence::before { content:'';position:absolute;top:-10px;left:0;right:0;height:2px;background:rgba(80,255,140,.1); }
+.sleep-fence-post { position:absolute;bottom:10px;width:4px;border-radius:3px 3px 0 0;background:rgba(80,255,140,.22); }
+.sleep-jumper { position:absolute;bottom:12px;white-space:nowrap;animation:jumpFence var(--jdur,4s) cubic-bezier(.4,0,.6,1) forwards;transform-origin:bottom center;filter:drop-shadow(0 2px 8px rgba(80,255,140,.5)); }
+@keyframes jumpFence {
+  0%   { left:-10%;  transform:scaleX(1) translateY(0);   opacity:0; }
+  6%   { opacity:1; }
+  30%  { left:35%;   transform:scaleX(1) translateY(0); }
+  40%  { left:44%;   transform:scaleX(1) translateY(-200%); }
+  50%  { left:52%;   transform:scaleX(-1) translateY(-220%); }
+  62%  { left:62%;   transform:scaleX(-1) translateY(0); }
+  90%  { opacity:1;  left:96%; }
+  100% { left:112%;  opacity:0; transform:scaleX(-1) translateY(0); }
+}
+.sleep-sheep-label { position:absolute;top:4px;left:clamp(10px,3vw,16px);font-size:clamp(8px,2vw,10px);color:rgba(80,255,140,.35);font-family:'DM Mono',monospace;letter-spacing:1px;white-space:nowrap; }
+.sleep-sheep-count { position:absolute;top:4px;right:clamp(10px,3vw,16px);font-size:clamp(9px,2.2vw,11px);color:rgba(80,255,140,.5);font-family:'DM Mono',monospace;letter-spacing:1px;font-weight:600; }
+.sleep-coin-burst { position:fixed;pointer-events:none;z-index:9999;font-size:clamp(14px,3.5vw,20px);animation:coinPop 1s ease-out forwards; }
+@keyframes coinPop { 0%{transform:scale(0) translateY(0);opacity:1} 50%{transform:scale(1.4) translateY(-28px);opacity:1} 100%{transform:scale(.7) translateY(-60px);opacity:0} }
+.sleep-affirmation { text-align:center;width:100%;max-width:440px;padding:0 4px; }
+.sleep-affirmation-text { font-family:'Syne',sans-serif;font-size:clamp(13px,3.5vw,17px);font-weight:600;line-height:1.6;color:rgba(255,255,255,.52);transition:opacity 1.2s ease; }
+.sleep-breath-guide { display:flex;align-items:center;gap:12px; }
+.sleep-breath-dot { width:9px;height:9px;border-radius:50%;background:rgba(120,180,255,.48);animation:sPulse 4s ease-in-out infinite;flex-shrink:0; }
+@keyframes sPulse { 0%,100%{transform:scale(1);opacity:.28;box-shadow:0 0 0 0 rgba(120,180,255,0)} 50%{transform:scale(2.3);opacity:.8;box-shadow:0 0 14px rgba(120,180,255,.4)} }
+.sleep-breath-text { font-size:clamp(9px,2vw,10px);color:rgba(255,255,255,.16);font-family:'DM Mono',monospace;letter-spacing:2px; }
+.sleep-progress-wrap { width:100%;max-width:340px; }
+.sleep-progress-bar { width:100%;height:2px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden; }
+.sleep-progress-fill { height:100%;background:linear-gradient(90deg,rgba(60,140,255,.5),rgba(140,80,255,.5),rgba(60,255,130,.5));border-radius:2px;transition:width 1s linear; }
+.sleep-controls-bar { position:absolute;bottom:0;left:0;right:0;padding:clamp(8px,2vw,12px) clamp(8px,3vw,14px);background:rgba(0,0,0,.7);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.04);display:flex;gap:6px;z-index:10;flex-wrap:wrap;justify-content:center; }
+.sleep-ctrl-btn { padding:clamp(7px,1.8vw,9px) clamp(11px,3vw,16px);border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.38);cursor:pointer;font-size:clamp(10px,2.5vw,11px);transition:all .2s;white-space:nowrap; }
+.sleep-ctrl-btn:hover,.sleep-ctrl-btn:active { background:rgba(255,255,255,.1);color:rgba(255,255,255,.8); }
+.sleep-ctrl-btn.active-time { border-color:rgba(80,180,255,.4);color:rgba(120,200,255,.8);background:rgba(80,180,255,.1); }
+.sleep-close-btn { position:absolute;top:clamp(8px,2vw,12px);right:clamp(8px,2vw,12px);z-index:20;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:rgba(255,255,255,.28);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .2s; }
+.sleep-close-btn:hover { color:rgba(255,255,255,.8);background:rgba(255,255,255,.1); }
 
 /* ══════════ RESPONSIVE ══════════ */
 @media (max-width: 900px) {
@@ -1073,80 +1111,106 @@ Use a barra acima para formatar. Exemplos:
 
 <!-- ════ SLEEP MODE OVERLAY ════ -->
 <div id="sleep-overlay">
-  <!-- Layers -->
   <canvas id="sleep-main-canvas"></canvas>
   <div class="sleep-bg"></div>
   <div class="sleep-stars" id="sleep-stars"></div>
-  <div class="sleep-moon" id="sleep-moon">🌙</div>
+  <div class="sleep-moon">🌙</div>
+  <button class="sleep-close-btn" onclick="closeSleepMode()">✕</button>
 
-  <!-- Close -->
-  <button class="sleep-close-btn" onclick="closeSleepMode()" title="Fechar">✕</button>
-
-  <!-- Top bar: sound controls (opera em segundo plano) -->
-  <div class="sleep-sound-bar" id="sleep-sound-bar">
-    <div style="font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:6px">🎵 Som Binaural · Riqueza & Sono</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+  <!-- SOUND BAR -->
+  <div class="sleep-sound-bar">
+    <div class="sleep-sound-label">🎵 Som Binaural · Riqueza &amp; Sono</div>
+    <div class="sleep-sound-btns">
       <button class="sleep-sound-btn active" id="sbtn-wealth" onclick="selectBinaural('wealth',this)">💰 432Hz Abundância</button>
-      <button class="sleep-sound-btn" id="sbtn-deep" onclick="selectBinaural('deep',this)">🌊 Delta Sono Profundo</button>
+      <button class="sleep-sound-btn" id="sbtn-deep"  onclick="selectBinaural('deep',this)">🌊 Delta Profundo</button>
       <button class="sleep-sound-btn" id="sbtn-theta" onclick="selectBinaural('theta',this)">✨ Theta Subconsciente</button>
-      <button class="sleep-sound-btn" id="sbtn-rain" onclick="selectBinaural('rain',this)">🌧 Chuva Relaxante</button>
+      <button class="sleep-sound-btn" id="sbtn-rain"  onclick="selectBinaural('rain',this)">🌧 Chuva</button>
     </div>
-    <div style="display:flex;align-items:center;gap:10px;margin-top:10px;justify-content:center">
-      <span style="font-size:11px;color:rgba(255,255,255,0.3)">🔈</span>
-      <input type="range" id="sleep-volume" min="0" max="100" value="40" style="width:140px;accent-color:rgba(100,180,255,0.7)" oninput="setSleepVolume(this.value)">
-      <span style="font-size:11px;color:rgba(255,255,255,0.3)">🔊</span>
-      <button class="sleep-sound-btn" id="sleep-mute-btn" onclick="toggleSleepMute()" style="padding:4px 10px;font-size:11px">⏸ Pausar</button>
+    <div class="sleep-vol-row">
+      <span>🔈</span>
+      <input type="range" id="sleep-volume" min="0" max="100" value="40" oninput="setSleepVolume(this.value)">
+      <span>🔊</span>
+      <button class="sleep-sound-btn" id="sleep-mute-btn" onclick="toggleSleepMute()">⏸ Pausar</button>
     </div>
-    <div style="font-size:10px;color:rgba(255,255,255,0.2);margin-top:4px">Opera em segundo plano · Pode minimizar a tela</div>
+    <div class="sleep-bg-hint">Opera em segundo plano · Pode minimizar a tela</div>
   </div>
 
-  <!-- Main content -->
-  <div class="sleep-content" id="sleep-content">
+  <!-- SCROLLABLE BODY -->
+  <div class="sleep-scroll">
 
     <!-- Timer -->
-    <div class="sleep-title">MODO SONO · LIFE OS</div>
-    <div class="sleep-timer-display" id="sleep-timer-display">30:00</div>
-    <div class="sleep-phase" id="sleep-phase">relaxando...</div>
+    <div class="sleep-header">
+      <div class="sleep-title">MODO SONO · LIFE OS</div>
+      <div class="sleep-timer-display" id="sleep-timer-display">30:00</div>
+      <div class="sleep-phase" id="sleep-phase">relaxando...</div>
+    </div>
 
-    <!-- CONTADOR DE RIQUEZA (ovelhas de R$100) -->
-    <div class="sleep-wealth-counter" id="sleep-wealth-counter">
-      <div class="sleep-wealth-title">💰 ENTRANDO NA SUA CONTA</div>
-      <div class="sleep-wealth-amount" id="sleep-wealth-amount">R$ 0</div>
-      <div class="sleep-wealth-rate">+ R$100 a cada segundo</div>
-      <div class="sleep-sheep-track" id="sleep-sheep-track">
-        <!-- ovelhas animadas aparecem aqui -->
+    <!-- BANK SCENE -->
+    <div class="sleep-bank-scene" id="sleep-bank-scene">
+      <!-- Header -->
+      <div class="sleep-bank-header">
+        <div class="sleep-bank-icon">🏦</div>
+        <div class="sleep-bank-name">Minha Conta</div>
+        <div class="sleep-bank-live">AO VIVO</div>
+      </div>
+
+      <!-- Balance -->
+      <div class="sleep-balance-area">
+        <div class="sleep-balance-label">Saldo Acumulado</div>
+        <div class="sleep-balance-value" id="sleep-balance-value">R$ 0</div>
+        <div class="sleep-rate-badge" id="sleep-rate-badge">R$100 entrando a cada segundo</div>
+      </div>
+
+      <!-- Transaction feed -->
+      <div class="sleep-tx-feed">
+        <div class="sleep-tx-list" id="sleep-tx-list"></div>
+      </div>
+
+      <!-- Sheep jump fence -->
+      <div class="sleep-fence-area" id="sleep-fence-area">
+        <div class="sleep-fence-bg"></div>
+        <div class="sleep-fence"></div>
+        <div class="sleep-fence-post" style="left:20%;height:clamp(20px,5.5vw,28px)"></div>
+        <div class="sleep-fence-post" style="left:47%;height:clamp(24px,6.5vw,34px)"></div>
+        <div class="sleep-fence-post" style="left:48.5%;height:clamp(28px,7.5vw,40px)"></div>
+        <div class="sleep-fence-post" style="left:50%;height:clamp(24px,6.5vw,34px)"></div>
+        <div class="sleep-fence-post" style="left:80%;height:clamp(20px,5.5vw,28px)"></div>
+        <div class="sleep-sheep-label">Riquezas pulando a cerca →</div>
+        <div class="sleep-sheep-count" id="sleep-sheep-count">💰 0</div>
       </div>
     </div>
 
-    <!-- Afirmação -->
+    <!-- Affirmation -->
     <div class="sleep-affirmation">
       <div class="sleep-affirmation-text" id="sleep-affirmation-text">Enquanto você descansa, o dinheiro trabalha para você</div>
     </div>
 
-    <!-- Respiração -->
-    <div class="sleep-breath-guide" style="margin-top:16px">
+    <!-- Breath -->
+    <div class="sleep-breath-guide">
       <div class="sleep-breath-dot"></div>
       <div class="sleep-breath-text">INSPIRE · SEGURE · EXPIRE · DURMA</div>
       <div class="sleep-breath-dot" style="animation-delay:2s"></div>
     </div>
 
     <!-- Progress -->
-    <div class="sleep-progress-bar" style="margin-top:20px">
-      <div class="sleep-progress-fill" id="sleep-progress-fill" style="width:0%"></div>
+    <div class="sleep-progress-wrap">
+      <div class="sleep-progress-bar">
+        <div class="sleep-progress-fill" id="sleep-progress-fill" style="width:0%"></div>
+      </div>
     </div>
-  </div>
 
-  <!-- Bottom controls -->
+  </div><!-- .sleep-scroll -->
+
+  <!-- BOTTOM CONTROLS -->
   <div class="sleep-controls-bar">
-    <button class="sleep-ctrl-btn" onclick="setSleepTimer(15)">15 min</button>
-    <button class="sleep-ctrl-btn" onclick="setSleepTimer(30)">30 min</button>
-    <button class="sleep-ctrl-btn" onclick="setSleepTimer(45)">45 min</button>
-    <button class="sleep-ctrl-btn" onclick="setSleepTimer(60)">60 min</button>
-    <button class="sleep-ctrl-btn" onclick="setSleepTimer(480)" style="border-color:rgba(100,100,255,0.3)">8h Noite</button>
-    <button class="sleep-ctrl-btn" id="sleep-toggle-visual" onclick="toggleSleepVisual()" style="border-color:rgba(100,255,150,0.3);color:rgba(100,255,150,0.6)">🎬 Visual ON</button>
+    <button class="sleep-ctrl-btn active-time" id="stime-30" onclick="setSleepTimer(30,this)">30 min</button>
+    <button class="sleep-ctrl-btn" id="stime-15"  onclick="setSleepTimer(15,this)">15 min</button>
+    <button class="sleep-ctrl-btn" id="stime-45"  onclick="setSleepTimer(45,this)">45 min</button>
+    <button class="sleep-ctrl-btn" id="stime-60"  onclick="setSleepTimer(60,this)">60 min</button>
+    <button class="sleep-ctrl-btn" id="stime-480" onclick="setSleepTimer(480,this)" style="border-color:rgba(100,100,255,.25)">8h Noite</button>
+    <button class="sleep-ctrl-btn" id="sleep-toggle-visual" onclick="toggleSleepVisual()" style="border-color:rgba(100,255,150,.25);color:rgba(100,255,150,.55)">🎬 Visual ON</button>
   </div>
 </div>
-
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -2488,27 +2552,27 @@ function insertNoteBlock(type) {
 }
 
 // ═══════════════════════════════════════════
-// SLEEP MODE — PREMIUM
 // ═══════════════════════════════════════════
-let sleepTimerSeconds = 30 * 60, sleepTimerTotal = 30 * 60;
+// SLEEP MODE — PREMIUM v2
+// ═══════════════════════════════════════════
+let sleepTimerSeconds = 30*60, sleepTimerTotal = 30*60;
 let sleepRunning = false, sleepTimerInterval = null, sleepAffirmationTimer = null;
 let sleepVisualActive = true, sleepAnimFrame = null;
 let sleepMainCanvas, sleepCtx, sleepParticles = [];
 let sleepWealthTotal = 0, sleepWealthInterval = null, sleepSheepInterval = null;
-let sleepSheepCount = 0;
+let sleepSheepCount = 0, sleepTxCount = 0;
 
-// ── Binaural / Audio ──
-let sleepAudioCtx = null, sleepOsc1 = null, sleepOsc2 = null, sleepGain = null;
-let sleepNoiseNode = null, sleepNoiseGain = null;
+// Audio
+let sleepAudioCtx = null, sleepOsc1 = null, sleepOsc2 = null;
+let sleepMasterGain = null, sleepNoiseNode = null;
 let sleepAudioMuted = false, sleepVolume = 0.4;
 let sleepCurrentSound = 'wealth';
 
-// Frequencies: base + beat
 const binauralPresets = {
-  wealth: { base: 432, beat: 8,  label: '432Hz · Abundância · Ondas Alpha', color: 'rgba(80,255,160,0.3)' },
-  deep:   { base: 100, beat: 2,  label: '100Hz · Delta · Sono Profundo',     color: 'rgba(80,120,255,0.3)' },
-  theta:  { base: 200, beat: 6,  label: '200Hz · Theta · Subconsciente',     color: 'rgba(180,80,255,0.3)' },
-  rain:   { base: 0,   beat: 0,  label: 'Chuva Branca · Relaxamento',        color: 'rgba(100,200,255,0.3)' },
+  wealth: { base:432, beat:8  },
+  deep:   { base:100, beat:2  },
+  theta:  { base:200, beat:6  },
+  rain:   { base:0,   beat:0  }
 };
 
 const sleepAffirmations = [
@@ -2524,11 +2588,14 @@ const sleepAffirmations = [
   'Amanhã você acorda mais rico e mais descansado'
 ];
 
+const sleepTxDescs = [
+  'Receita passiva','Dividendos','Royalties','Freelance','Investimento','Renda digital','Afiliados','Consultoria','Produto digital','Aluguel'
+];
+
+// ── Audio ──
 function initSleepAudio() {
   if (sleepAudioCtx) return;
-  try {
-    sleepAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  } catch(e) { return; }
+  try { sleepAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
 }
 
 function startBinaural(preset) {
@@ -2537,98 +2604,83 @@ function startBinaural(preset) {
   const p = binauralPresets[preset];
   if (!p || p.base === 0) { startRainSound(); return; }
 
-  sleepGain = sleepAudioCtx.createGain();
-  sleepGain.gain.setValueAtTime(sleepVolume * 0.18, sleepAudioCtx.currentTime);
-  sleepGain.connect(sleepAudioCtx.destination);
+  sleepMasterGain = sleepAudioCtx.createGain();
+  sleepMasterGain.gain.setValueAtTime(sleepVolume * 0.16, sleepAudioCtx.currentTime);
+  sleepMasterGain.connect(sleepAudioCtx.destination);
 
-  // Left ear
+  const merger = sleepAudioCtx.createChannelMerger(2);
+  merger.connect(sleepMasterGain);
+
+  // Left oscillator
   sleepOsc1 = sleepAudioCtx.createOscillator();
   sleepOsc1.type = 'sine';
   sleepOsc1.frequency.setValueAtTime(p.base, sleepAudioCtx.currentTime);
-  const leftPan = sleepAudioCtx.createStereoPanner();
-  leftPan.pan.setValueAtTime(-1, sleepAudioCtx.currentTime);
-  sleepOsc1.connect(leftPan);
-  leftPan.connect(sleepGain);
+  const g1 = sleepAudioCtx.createGain(); g1.gain.setValueAtTime(1, sleepAudioCtx.currentTime);
+  sleepOsc1.connect(g1); g1.connect(merger, 0, 0);
 
-  // Right ear (base + beat frequency)
+  // Right oscillator (beats)
   sleepOsc2 = sleepAudioCtx.createOscillator();
   sleepOsc2.type = 'sine';
   sleepOsc2.frequency.setValueAtTime(p.base + p.beat, sleepAudioCtx.currentTime);
-  const rightPan = sleepAudioCtx.createStereoPanner();
-  rightPan.pan.setValueAtTime(1, sleepAudioCtx.currentTime);
-  sleepOsc2.connect(rightPan);
-  rightPan.connect(sleepGain);
+  const g2 = sleepAudioCtx.createGain(); g2.gain.setValueAtTime(1, sleepAudioCtx.currentTime);
+  sleepOsc2.connect(g2); g2.connect(merger, 0, 1);
 
-  // Low rumble undertone for depth
+  // Gentle LFO breath
   const lfo = sleepAudioCtx.createOscillator();
-  lfo.type = 'sine';
-  lfo.frequency.setValueAtTime(0.1, sleepAudioCtx.currentTime);
   const lfoGain = sleepAudioCtx.createGain();
-  lfoGain.gain.setValueAtTime(2, sleepAudioCtx.currentTime);
-  lfo.connect(lfoGain);
-  lfoGain.connect(sleepOsc1.frequency);
-  lfo.start();
+  lfo.type = 'sine'; lfo.frequency.setValueAtTime(0.08, sleepAudioCtx.currentTime);
+  lfoGain.gain.setValueAtTime(3, sleepAudioCtx.currentTime);
+  lfo.connect(lfoGain); lfoGain.connect(sleepOsc1.frequency);
+  lfo.start(); sleepOsc1.start(); sleepOsc2.start();
 
-  sleepOsc1.start();
-  sleepOsc2.start();
-
-  // Add subtle pink noise layer
-  addPinkNoise(sleepVolume * 0.06);
+  addPinkNoise(sleepVolume * 0.05);
 }
 
 function startRainSound() {
   if (!sleepAudioCtx) return;
   stopBinaural();
-  sleepNoiseGain = sleepAudioCtx.createGain();
-  sleepNoiseGain.gain.setValueAtTime(sleepVolume * 0.4, sleepAudioCtx.currentTime);
-  sleepNoiseGain.connect(sleepAudioCtx.destination);
-
-  const bufferSize = sleepAudioCtx.sampleRate * 3;
-  const buffer = sleepAudioCtx.createBuffer(2, bufferSize, sleepAudioCtx.sampleRate);
-  for (let c = 0; c < 2; c++) {
-    const data = buffer.getChannelData(c);
+  sleepMasterGain = sleepAudioCtx.createGain();
+  sleepMasterGain.gain.setValueAtTime(sleepVolume * 0.45, sleepAudioCtx.currentTime);
+  sleepMasterGain.connect(sleepAudioCtx.destination);
+  const sr = sleepAudioCtx.sampleRate, bufLen = sr * 3;
+  const buf = sleepAudioCtx.createBuffer(2, bufLen, sr);
+  for (let c=0;c<2;c++) {
+    const d = buf.getChannelData(c);
     let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0;
-    for (let i = 0; i < bufferSize; i++) {
-      const white = Math.random() * 2 - 1;
-      b0 = 0.99886*b0 + white*0.0555179; b1 = 0.99332*b1 + white*0.0750759;
-      b2 = 0.96900*b2 + white*0.1538520; b3 = 0.86650*b3 + white*0.3104856;
-      b4 = 0.55000*b4 + white*0.5329522; b5 = -0.7616*b5 - white*0.0168980;
-      data[i] = (b0+b1+b2+b3+b4+b5+white*0.5362) * 0.11;
+    for (let i=0;i<bufLen;i++) {
+      const w=Math.random()*2-1;
+      b0=.99886*b0+w*.0555179; b1=.99332*b1+w*.0750759;
+      b2=.96900*b2+w*.1538520; b3=.86650*b3+w*.3104856;
+      b4=.55000*b4+w*.5329522; b5=-.7616*b5-w*.0168980;
+      d[i]=(b0+b1+b2+b3+b4+b5+w*.5362)*.1;
     }
   }
   sleepNoiseNode = sleepAudioCtx.createBufferSource();
-  sleepNoiseNode.buffer = buffer;
-  sleepNoiseNode.loop = true;
-  sleepNoiseNode.connect(sleepNoiseGain);
+  sleepNoiseNode.buffer = buf; sleepNoiseNode.loop = true;
+  const filt = sleepAudioCtx.createBiquadFilter();
+  filt.type = 'lowpass'; filt.frequency.setValueAtTime(1600, sleepAudioCtx.currentTime);
+  sleepNoiseNode.connect(filt); filt.connect(sleepMasterGain);
   sleepNoiseNode.start();
-
-  // Add low-pass filter for rain feel
-  const filter = sleepAudioCtx.createBiquadFilter();
-  filter.type = 'lowpass';
-  filter.frequency.setValueAtTime(1800, sleepAudioCtx.currentTime);
-  sleepNoiseNode.disconnect();
-  sleepNoiseNode.connect(filter);
-  filter.connect(sleepNoiseGain);
 }
 
 function addPinkNoise(vol) {
-  if (!sleepAudioCtx) return;
+  if (!sleepAudioCtx || !sleepMasterGain) return;
   const ng = sleepAudioCtx.createGain();
   ng.gain.setValueAtTime(vol, sleepAudioCtx.currentTime);
   ng.connect(sleepAudioCtx.destination);
-  const buf = sleepAudioCtx.sampleRate * 2;
-  const buffer = sleepAudioCtx.createBuffer(1, buf, sleepAudioCtx.sampleRate);
-  const data = buffer.getChannelData(0);
+  const sr = sleepAudioCtx.sampleRate, bufLen = sr*2;
+  const buf = sleepAudioCtx.createBuffer(1, bufLen, sr);
+  const d = buf.getChannelData(0);
   let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0;
-  for (let i=0;i<buf;i++){
+  for (let i=0;i<bufLen;i++) {
     const w=Math.random()*2-1;
-    b0=0.99886*b0+w*0.0555179; b1=0.99332*b1+w*0.0750759;
-    b2=0.96900*b2+w*0.1538520; b3=0.86650*b3+w*0.3104856;
-    b4=0.55000*b4+w*0.5329522; b5=-0.7616*b5-w*0.0168980;
-    data[i]=(b0+b1+b2+b3+b4+b5+w*0.5362)*0.08;
+    b0=.99886*b0+w*.0555179; b1=.99332*b1+w*.0750759;
+    b2=.96900*b2+w*.1538520; b3=.86650*b3+w*.3104856;
+    b4=.55000*b4+w*.5329522; b5=-.7616*b5-w*.0168980;
+    d[i]=(b0+b1+b2+b3+b4+b5+w*.5362)*.06;
   }
   const src = sleepAudioCtx.createBufferSource();
-  src.buffer = buffer; src.loop = true;
+  src.buffer = buf; src.loop = true;
   src.connect(ng); src.start();
 }
 
@@ -2636,8 +2688,7 @@ function stopBinaural() {
   try { sleepOsc1 && sleepOsc1.stop(); sleepOsc2 && sleepOsc2.stop(); } catch(e) {}
   try { sleepNoiseNode && sleepNoiseNode.stop(); } catch(e) {}
   sleepOsc1 = sleepOsc2 = sleepNoiseNode = null;
-  if (sleepGain) { sleepGain.disconnect(); sleepGain = null; }
-  if (sleepNoiseGain) { sleepNoiseGain.disconnect(); sleepNoiseGain = null; }
+  if (sleepMasterGain) { try { sleepMasterGain.disconnect(); } catch(e){} sleepMasterGain = null; }
 }
 
 function selectBinaural(type, el) {
@@ -2649,19 +2700,44 @@ function selectBinaural(type, el) {
 
 function setSleepVolume(val) {
   sleepVolume = val / 100;
-  if (sleepGain) sleepGain.gain.setValueAtTime(sleepVolume * 0.18, sleepAudioCtx.currentTime);
-  if (sleepNoiseGain) sleepNoiseGain.gain.setValueAtTime(sleepVolume * 0.4, sleepAudioCtx.currentTime);
+  if (sleepMasterGain && sleepAudioCtx) {
+    const v = sleepCurrentSound === 'rain' ? sleepVolume * 0.45 : sleepVolume * 0.16;
+    sleepMasterGain.gain.setValueAtTime(v, sleepAudioCtx.currentTime);
+  }
 }
 
 function toggleSleepMute() {
   sleepAudioMuted = !sleepAudioMuted;
   const btn = document.getElementById('sleep-mute-btn');
   if (sleepAudioMuted) {
+    // Pause: stop sound AND pause wealth counter
     stopBinaural();
-    btn.textContent = '▶ Retomar'; btn.style.color = 'rgba(255,255,255,0.3)';
+    clearInterval(sleepWealthInterval);
+    clearInterval(sleepSheepInterval);
+    btn.textContent = '▶ Retomar';
+    btn.style.color = 'rgba(255,255,255,.3)';
+    btn.classList.remove('active');
   } else {
+    // Resume: restart sound AND wealth counter
     startBinaural(sleepCurrentSound);
-    btn.textContent = '⏸ Pausar'; btn.style.color = 'rgba(150,200,255,0.8)';
+    // Resume wealth from where it left off
+    sleepWealthInterval = setInterval(() => {
+      sleepWealthTotal += 100;
+      const balEl = document.getElementById('sleep-balance-value');
+      balEl.textContent = 'R$ ' + sleepWealthTotal.toLocaleString('pt-BR');
+      balEl.classList.add('pop');
+      setTimeout(() => balEl.classList.remove('pop'), 350);
+      addTxItem();
+      spawnCoinBurst();
+    }, 1000);
+    sleepSheepInterval = setInterval(() => {
+      sleepSheepCount++;
+      document.getElementById('sleep-sheep-count').textContent = '💰 ' + sleepSheepCount;
+      spawnJumper();
+    }, 2000);
+    btn.textContent = '⏸ Pausar';
+    btn.style.color = 'rgba(140,200,255,.95)';
+    btn.classList.add('active');
   }
 }
 
@@ -2686,22 +2762,26 @@ function closeSleepMode() {
   clearInterval(sleepTimerInterval); clearInterval(sleepAffirmationTimer);
   clearInterval(sleepWealthInterval); clearInterval(sleepSheepInterval);
   cancelAnimationFrame(sleepAnimFrame);
+  // PAUSE sound when closing
   stopBinaural();
   sleepRunning = false;
-  sleepWealthTotal = 0;
-  document.getElementById('sleep-wealth-amount').textContent = 'R$ 0';
-  document.getElementById('sleep-sheep-track').innerHTML = '';
+  sleepWealthTotal = 0; sleepSheepCount = 0; sleepTxCount = 0;
+  document.getElementById('sleep-balance-value').textContent = 'R$ 0';
+  document.getElementById('sleep-tx-list').innerHTML = '';
+  document.getElementById('sleep-sheep-count').textContent = '🐑 0';
   sleepTimerSeconds = sleepTimerTotal;
   updateSleepDisplay();
   document.getElementById('sleep-progress-fill').style.width = '0%';
 }
 
-function setSleepTimer(mins) {
+function setSleepTimer(mins, el) {
   sleepTimerTotal = mins * 60;
   sleepTimerSeconds = sleepTimerTotal;
   clearInterval(sleepTimerInterval); sleepRunning = false;
   document.getElementById('sleep-progress-fill').style.width = '0%';
   updateSleepDisplay();
+  document.querySelectorAll('.sleep-ctrl-btn[id^="stime-"]').forEach(b => b.classList.remove('active-time'));
+  if (el) el.classList.add('active-time');
   startSleepTimer();
 }
 
@@ -2724,92 +2804,107 @@ function updateSleepDisplay() {
   const m = Math.floor(sleepTimerSeconds/60), s = sleepTimerSeconds%60;
   document.getElementById('sleep-timer-display').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
   const mins = Math.floor(sleepTimerSeconds/60);
-  const phases = [[40,'relaxando...'],[25,'desacelerando...'],[15,'adormecendo...'],[5,'sono leve...'],[0,'sono profundo 🌙']];
-  for (const [t, label] of phases) { if (mins > t) { document.getElementById('sleep-phase').textContent = label; break; } }
+  let phase = 'sono profundo 🌙';
+  if (mins > 40) phase = 'relaxando...';
+  else if (mins > 25) phase = 'desacelerando...';
+  else if (mins > 15) phase = 'adormecendo...';
+  else if (mins > 5) phase = 'sono leve...';
+  document.getElementById('sleep-phase').textContent = phase;
 }
 
 function rotateSleepAffirmation() {
   const el = document.getElementById('sleep-affirmation-text');
   el.style.opacity = '0';
-  setTimeout(() => { el.textContent = sleepAffirmations[Math.floor(Math.random()*sleepAffirmations.length)]; el.style.opacity = '1'; }, 700);
+  setTimeout(() => {
+    el.textContent = sleepAffirmations[Math.floor(Math.random()*sleepAffirmations.length)];
+    el.style.opacity = '1';
+  }, 700);
 }
 
-// ── Wealth Counter & Sheep ──
+// ── Wealth counter + sheep ──
 function startWealthCounter() {
   clearInterval(sleepWealthInterval); clearInterval(sleepSheepInterval);
-  sleepWealthTotal = 0; sleepSheepCount = 0;
-  document.getElementById('sleep-wealth-amount').textContent = 'R$ 0';
-  document.getElementById('sleep-sheep-track').innerHTML = '';
+  sleepWealthTotal = 0; sleepSheepCount = 0; sleepTxCount = 0;
+  document.getElementById('sleep-tx-list').innerHTML = '';
 
+  // +R$100 every second
   sleepWealthInterval = setInterval(() => {
     sleepWealthTotal += 100;
-    const formatted = 'R$ ' + sleepWealthTotal.toLocaleString('pt-BR');
-    const amountEl = document.getElementById('sleep-wealth-amount');
-    amountEl.textContent = formatted;
-    amountEl.style.transform = 'scale(1.08)';
-    setTimeout(() => { amountEl.style.transform = 'scale(1)'; amountEl.style.transition = 'transform 0.3s'; }, 200);
+    const balEl = document.getElementById('sleep-balance-value');
+    balEl.textContent = 'R$ ' + sleepWealthTotal.toLocaleString('pt-BR');
+    balEl.classList.add('pop');
+    setTimeout(() => balEl.classList.remove('pop'), 350);
+    addTxItem();
     spawnCoinBurst();
   }, 1000);
 
+  // Sheep jump every 2s
   sleepSheepInterval = setInterval(() => {
     sleepSheepCount++;
-    spawnSheep(sleepSheepCount);
-  }, 1800);
+    document.getElementById('sleep-sheep-count').textContent = '🐑 ' + sleepSheepCount;
+    spawnJumper();
+  }, 2000);
 }
 
-function spawnSheep(n) {
-  const track = document.getElementById('sleep-sheep-track');
-  const sheep = document.createElement('div');
-  sheep.className = 'sleep-sheep';
-  const dur = 5 + Math.random() * 4;
-  const top = Math.random() * 14;
-  sheep.style.cssText = `top:${top}px; animation-duration:${dur}s; animation-delay:0s;`;
-  sheep.innerHTML = `🐑 <span style="font-size:11px;font-family:'DM Mono',monospace;color:rgba(100,255,120,0.8)">R$100</span>`;
-  track.appendChild(sheep);
-  setTimeout(() => sheep.remove(), (dur + 0.5) * 1000);
+function addTxItem() {
+  const list = document.getElementById('sleep-tx-list');
+  sleepTxCount++;
+  const desc = sleepTxDescs[Math.floor(Math.random()*sleepTxDescs.length)];
+  const val = (Math.floor(Math.random()*9)+1)*100;
+  const item = document.createElement('div');
+  item.className = 'sleep-tx-item';
+  item.innerHTML = `<div class="sleep-tx-dot"></div><div class="sleep-tx-desc">${desc}</div><div class="sleep-tx-val">+R$${val}</div>`;
+  list.insertBefore(item, list.firstChild);
+  // Keep max 6 items
+  while (list.children.length > 6) list.removeChild(list.lastChild);
+}
+
+function spawnJumper() {
+  const area = document.getElementById('sleep-fence-area');
+  if (!area) return;
+  const el = document.createElement('div');
+  el.className = 'sleep-jumper';
+  const dur = 3.4 + Math.random() * 1.2;
+  el.style.setProperty('--jdur', dur + 's');
+  el.innerHTML = `💰`;
+  area.appendChild(el);
+  setTimeout(() => el.remove(), (dur + 0.3) * 1000);
 }
 
 function spawnCoinBurst() {
-  const counter = document.querySelector('.sleep-wealth-counter');
-  if (!counter) return;
-  const coins = ['💰','🪙','💵','✨','💎'];
-  for (let i = 0; i < 4; i++) {
+  const scene = document.getElementById('sleep-bank-scene');
+  if (!scene) return;
+  const rect = scene.getBoundingClientRect();
+  const coins = ['🪙','💵','💰','✨','💎','$'];
+  for (let i = 0; i < 3; i++) {
     const coin = document.createElement('div');
     coin.className = 'sleep-coin-burst';
-    const x = 30 + Math.random() * 60;
-    const xOff = (Math.random() - 0.5) * 60;
-    coin.style.cssText = `left:calc(${x}% + ${xOff}px); top: 50%; animation-delay:${i*0.1}s`;
-    coin.textContent = coins[Math.floor(Math.random() * coins.length)];
-    counter.style.position = 'relative';
-    counter.appendChild(coin);
-    setTimeout(() => coin.remove(), 1500);
+    coin.style.cssText = `left:${rect.left + rect.width * (0.2 + Math.random()*0.6)}px;top:${rect.top + rect.height * 0.3}px;animation-delay:${i*0.12}s`;
+    coin.textContent = coins[Math.floor(Math.random()*coins.length)];
+    document.body.appendChild(coin);
+    setTimeout(() => coin.remove(), 1200);
   }
 }
 
-// ── Canvas: particle system (coins + shimmer) ──
+// ── Canvas particles ──
 function initSleepCanvas() {
   sleepMainCanvas = document.getElementById('sleep-main-canvas');
   sleepMainCanvas.width = window.innerWidth;
   sleepMainCanvas.height = window.innerHeight;
   sleepCtx = sleepMainCanvas.getContext('2d');
-  sleepParticles = Array.from({length: 55}, () => makeSleepParticle());
+  sleepParticles = Array.from({length:50}, makeSleepParticle);
 }
 
 function makeSleepParticle() {
-  const types = ['coin', 'coin', 'coin', 'shimmer', 'shimmer', 'star'];
-  const t = types[Math.floor(Math.random() * types.length)];
   return {
-    type: t,
-    x: Math.random() * window.innerWidth,
-    y: -40 - Math.random() * window.innerHeight * 0.6,
-    vy: t === 'coin' ? 0.5 + Math.random() * 0.7 : 0.2 + Math.random() * 0.4,
-    vx: (Math.random() - 0.5) * 0.5,
-    rot: Math.random() * 360,
-    rotV: (Math.random() - 0.5) * 1.2,
-    size: t === 'coin' ? 12 + Math.random() * 10 : 3 + Math.random() * 4,
-    alpha: 0.1 + Math.random() * 0.25,
-    hue: t === 'coin' ? 120 + Math.random() * 40 : 200 + Math.random() * 60,
-    pulse: Math.random() * Math.PI * 2,
+    x: Math.random()*window.innerWidth,
+    y: -40 - Math.random()*window.innerHeight*.5,
+    vy: .3 + Math.random()*.6, vx: (Math.random()-.5)*.4,
+    rot: Math.random()*360, rotV: (Math.random()-.5)*1.2,
+    size: 8 + Math.random()*12,
+    alpha: .08 + Math.random()*.18,
+    hue: 110 + Math.random()*40,
+    pulse: Math.random()*Math.PI*2, isCoin: Math.random() > .35
   };
 }
 
@@ -2817,61 +2912,44 @@ function sleepRenderLoop() {
   if (!sleepVisualActive || !sleepCtx) return;
   const W = sleepMainCanvas.width, H = sleepMainCanvas.height;
   sleepCtx.clearRect(0, 0, W, H);
-
   sleepParticles.forEach(p => {
-    p.x += p.vx; p.y += p.vy; p.rot += p.rotV;
-    p.pulse += 0.04;
-    const alpha = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
-    if (p.y > H + 60) { Object.assign(p, makeSleepParticle()); p.y = -40; }
-
+    p.x += p.vx; p.y += p.vy; p.rot += p.rotV; p.pulse += .035;
+    const alpha = p.alpha * (.7 + .3*Math.sin(p.pulse));
+    if (p.y > H + 50) { Object.assign(p, makeSleepParticle()); p.y = -40; }
     sleepCtx.save();
     sleepCtx.globalAlpha = alpha;
     sleepCtx.translate(p.x, p.y);
-    sleepCtx.rotate(p.rot * Math.PI / 180);
-
-    if (p.type === 'coin') {
-      // Draw coin as ellipse (perspective)
-      const scaleY = Math.abs(Math.cos(p.rot * Math.PI / 180)) * 0.6 + 0.2;
-      sleepCtx.scale(1, scaleY);
+    sleepCtx.rotate(p.rot * Math.PI/180);
+    if (p.isCoin) {
+      const sy = Math.abs(Math.cos(p.rot * Math.PI/180)) * .5 + .25;
+      sleepCtx.scale(1, sy);
       sleepCtx.beginPath();
-      sleepCtx.arc(0, 0, p.size, 0, Math.PI * 2);
-      const grad = sleepCtx.createRadialGradient(-p.size*0.3, -p.size*0.3, 0, 0, 0, p.size);
-      grad.addColorStop(0, `hsla(${p.hue+20},90%,85%,1)`);
-      grad.addColorStop(0.5, `hsla(${p.hue},85%,55%,1)`);
-      grad.addColorStop(1, `hsla(${p.hue-10},80%,30%,1)`);
-      sleepCtx.fillStyle = grad;
-      sleepCtx.fill();
-      sleepCtx.strokeStyle = `hsla(${p.hue+10},80%,70%,0.6)`;
-      sleepCtx.lineWidth = 0.8;
-      sleepCtx.stroke();
-      // R$ label
-      sleepCtx.scale(1, 1/scaleY);
-      sleepCtx.fillStyle = `rgba(0,0,0,0.5)`;
-      sleepCtx.font = `bold ${p.size * 0.55}px 'DM Mono', monospace`;
-      sleepCtx.textAlign = 'center';
-      sleepCtx.textBaseline = 'middle';
+      sleepCtx.arc(0, 0, p.size, 0, Math.PI*2);
+      const g = sleepCtx.createRadialGradient(-p.size*.3,-p.size*.3,0,0,0,p.size);
+      g.addColorStop(0,`hsla(${p.hue+15},90%,88%,1)`);
+      g.addColorStop(.5,`hsla(${p.hue},88%,58%,1)`);
+      g.addColorStop(1,`hsla(${p.hue-10},80%,32%,1)`);
+      sleepCtx.fillStyle = g; sleepCtx.fill();
+      sleepCtx.strokeStyle = `hsla(${p.hue+10},80%,72%,.5)`;
+      sleepCtx.lineWidth = .7; sleepCtx.stroke();
+      sleepCtx.scale(1, 1/sy);
+      sleepCtx.fillStyle = 'rgba(0,0,0,.45)';
+      sleepCtx.font = `bold ${p.size*.5}px 'DM Mono',monospace`;
+      sleepCtx.textAlign = 'center'; sleepCtx.textBaseline = 'middle';
       sleepCtx.fillText('R$', 0, 0);
-    } else if (p.type === 'shimmer') {
-      // sparkle
-      sleepCtx.beginPath();
-      for (let i = 0; i < 4; i++) {
-        const a = (i / 4) * Math.PI * 2;
-        const r = i % 2 === 0 ? p.size : p.size * 0.3;
-        if (i === 0) sleepCtx.moveTo(Math.cos(a)*r, Math.sin(a)*r);
-        else sleepCtx.lineTo(Math.cos(a)*r, Math.sin(a)*r);
-      }
-      sleepCtx.closePath();
-      sleepCtx.fillStyle = `hsla(${p.hue}, 80%, 80%, 0.9)`;
-      sleepCtx.fill();
     } else {
       sleepCtx.beginPath();
-      sleepCtx.arc(0, 0, p.size * 0.6, 0, Math.PI * 2);
-      sleepCtx.fillStyle = `hsla(${p.hue}, 60%, 80%, 0.7)`;
+      for (let k=0;k<4;k++) {
+        const a = k/4*Math.PI*2;
+        const r = k%2===0 ? p.size : p.size*.28;
+        k===0 ? sleepCtx.moveTo(Math.cos(a)*r,Math.sin(a)*r) : sleepCtx.lineTo(Math.cos(a)*r,Math.sin(a)*r);
+      }
+      sleepCtx.closePath();
+      sleepCtx.fillStyle = `hsla(${p.hue},70%,82%,.85)`;
       sleepCtx.fill();
     }
     sleepCtx.restore();
   });
-
   sleepAnimFrame = requestAnimationFrame(sleepRenderLoop);
 }
 
@@ -2880,27 +2958,27 @@ function toggleSleepVisual() {
   const btn = document.getElementById('sleep-toggle-visual');
   if (sleepVisualActive) {
     btn.textContent = '🎬 Visual ON';
-    btn.style.color = 'rgba(100,255,150,0.6)';
-    btn.style.borderColor = 'rgba(100,255,150,0.3)';
+    btn.style.color = 'rgba(100,255,150,.55)';
+    btn.style.borderColor = 'rgba(100,255,150,.25)';
     requestAnimationFrame(sleepRenderLoop);
   } else {
     btn.textContent = '🎬 Visual OFF';
-    btn.style.color = 'rgba(255,255,255,0.3)';
-    btn.style.borderColor = 'rgba(255,255,255,0.1)';
+    btn.style.color = 'rgba(255,255,255,.28)';
+    btn.style.borderColor = 'rgba(255,255,255,.1)';
     cancelAnimationFrame(sleepAnimFrame);
     if (sleepCtx) sleepCtx.clearRect(0, 0, sleepMainCanvas.width, sleepMainCanvas.height);
   }
 }
 
 function createSleepStars() {
-  const container = document.getElementById('sleep-stars');
-  container.innerHTML = '';
-  for (let i = 0; i < 140; i++) {
-    const star = document.createElement('div');
-    star.className = 'sleep-star';
-    const size = Math.random() * 2.5 + 0.3;
-    star.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${2+Math.random()*5}s;--delay:${Math.random()*5}s;`;
-    container.appendChild(star);
+  const c = document.getElementById('sleep-stars');
+  c.innerHTML = '';
+  for (let i=0;i<150;i++) {
+    const s = document.createElement('div');
+    s.className = 'sleep-star';
+    const sz = Math.random()*2.5+.3;
+    s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${2+Math.random()*5}s;--delay:${Math.random()*5}s;`;
+    c.appendChild(s);
   }
 }
 
@@ -2954,4 +3032,4 @@ function initApp() {
 }
 </script>
 </body>
-  </html>
+    </html>
