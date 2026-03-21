@@ -279,6 +279,68 @@ textarea { resize: vertical; min-height: 80px; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 .pulsing { animation: pulse 2s infinite; }
 
+/* ══════════ NOTES (NOTION-STYLE) ══════════ */
+.notes-layout { display: grid; grid-template-columns: 260px 1fr; gap: 0; height: calc(100vh - 120px); min-height: 500px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+.notes-sidebar { background: var(--surface2); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+.notes-sidebar-header { padding: 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.notes-sidebar-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--text2); letter-spacing: 1px; text-transform: uppercase; }
+.notes-list { flex: 1; overflow-y: auto; padding: 8px; }
+.note-item { padding: 10px 12px; border-radius: 10px; cursor: pointer; transition: all 0.15s; margin-bottom: 4px; border: 1px solid transparent; }
+.note-item:hover { background: var(--surface3); }
+.note-item.active { background: rgba(0,212,255,0.08); border-color: rgba(0,212,255,0.2); }
+.note-item-title { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
+.note-item-preview { font-size: 11px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.note-item-date { font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; margin-top: 4px; }
+.note-item-emoji { font-size: 16px; margin-right: 8px; flex-shrink: 0; }
+.notes-editor { display: flex; flex-direction: column; overflow: hidden; }
+.notes-toolbar { padding: 10px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.toolbar-btn { width: 30px; height: 30px; border-radius: 7px; border: none; background: transparent; color: var(--text3); cursor: pointer; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.toolbar-btn:hover { background: var(--surface3); color: var(--text); }
+.toolbar-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+.note-title-input { border: none; background: transparent; font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: var(--text); padding: 20px 24px 8px; letter-spacing: -0.5px; outline: none; width: 100%; }
+.note-title-input::placeholder { color: var(--text3); }
+.note-meta-bar { padding: 4px 24px 12px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.note-meta-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; font-family: 'DM Mono', monospace; cursor: pointer; border: 1px solid var(--border); background: var(--surface3); color: var(--text3); transition: all 0.15s; }
+.note-meta-tag:hover { border-color: var(--border2); color: var(--text2); }
+.note-meta-tag.selected { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
+.note-body { flex: 1; overflow: hidden; }
+.note-editor-area { width: 100%; height: 100%; border: none; background: transparent; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.8; padding: 8px 24px 24px; resize: none; outline: none; }
+.note-editor-area::placeholder { color: var(--text3); }
+.notes-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text3); gap: 12px; }
+.notes-empty-icon { font-size: 48px; opacity: 0.5; }
+.notes-word-count { padding: 8px 24px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; display: flex; justify-content: space-between; }
+
+/* ══════════ SLEEP MODE ══════════ */
+#sleep-overlay { position: fixed; inset: 0; z-index: 8000; background: #000; display: none; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+#sleep-overlay.active { display: flex; }
+.sleep-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(10,20,40,1) 0%, #000 70%); }
+.sleep-stars { position: absolute; inset: 0; overflow: hidden; }
+.sleep-star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--dur, 3s) ease-in-out infinite; animation-delay: var(--delay, 0s); }
+@keyframes twinkle { 0%, 100% { opacity: 0.1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.3); } }
+.sleep-moon { position: absolute; top: 8%; right: 12%; font-size: 64px; animation: moonFloat 8s ease-in-out infinite; filter: drop-shadow(0 0 30px rgba(255,220,100,0.4)); }
+@keyframes moonFloat { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-12px) rotate(5deg); } }
+.sleep-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0; width: 100%; max-width: 700px; padding: 0 24px; }
+.sleep-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+.sleep-timer-display { font-family: 'Syne', sans-serif; font-size: 80px; font-weight: 800; letter-spacing: -4px; color: rgba(255,255,255,0.85); line-height: 1; margin-bottom: 8px; text-shadow: 0 0 60px rgba(120,180,255,0.3); }
+.sleep-phase { font-size: 16px; color: rgba(255,255,255,0.4); margin-bottom: 48px; font-family: 'DM Mono', monospace; letter-spacing: 2px; text-transform: uppercase; }
+
+/* Money rain canvas */
+#money-canvas { position: absolute; inset: 0; opacity: 0.15; pointer-events: none; }
+.sleep-affirmation { text-align: center; max-width: 500px; }
+.sleep-affirmation-text { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.75); line-height: 1.5; letter-spacing: -0.3px; transition: opacity 1s ease; }
+.sleep-affirmation-sub { font-size: 13px; color: rgba(255,255,255,0.3); margin-top: 8px; font-family: 'DM Mono', monospace; }
+.sleep-breath-guide { display: flex; align-items: center; gap: 20px; margin-top: 40px; }
+.sleep-breath-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(120,180,255,0.6); animation: sleepPulse 4s ease-in-out infinite; }
+@keyframes sleepPulse { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(2); opacity: 0.9; } }
+.sleep-breath-text { font-size: 12px; color: rgba(255,255,255,0.3); font-family: 'DM Mono', monospace; letter-spacing: 1px; }
+.sleep-controls-bar { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
+.sleep-ctrl-btn { padding: 10px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5); cursor: pointer; font-size: 12px; transition: all 0.2s; backdrop-filter: blur(10px); }
+.sleep-ctrl-btn:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+.sleep-close-btn { position: absolute; top: 20px; right: 20px; z-index: 10; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.sleep-close-btn:hover { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.1); }
+.sleep-progress-bar { width: 100%; max-width: 400px; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; margin-top: 40px; overflow: hidden; }
+.sleep-progress-fill { height: 100%; background: linear-gradient(90deg, rgba(120,180,255,0.5), rgba(200,150,255,0.5)); border-radius: 2px; transition: width 1s linear; }
+
 /* ══════════ RESPONSIVE ══════════ */
 @media (max-width: 900px) {
   .grid-4 { grid-template-columns: repeat(2,1fr); }
@@ -361,6 +423,8 @@ textarea { resize: vertical; min-height: 80px; }
   <button class="nav-btn" onclick="navigate('goals')" id="nav-goals">◎<span class="nav-tooltip">Metas</span></button>
   <button class="nav-btn" onclick="navigate('routine')" id="nav-routine">📅<span class="nav-tooltip">Rotina</span></button>
   <button class="nav-btn" onclick="navigate('mindzone')" id="nav-mindzone">🧠<span class="nav-tooltip">MindZone</span></button>
+  <button class="nav-btn" onclick="navigate('notes')" id="nav-notes">📝<span class="nav-tooltip">Bloco de Notas</span></button>
+  <button class="nav-btn" onclick="openSleepMode()" id="nav-sleep">🌙<span class="nav-tooltip">Modo Sono</span></button>
   <button class="nav-btn" onclick="navigate('ai')" id="nav-ai" style="margin-top:auto">★<span class="nav-tooltip">IA Life Coach</span></button>
   <div class="user-area">
     <div class="user-avatar" onclick="toggleLogoutMenu()">
@@ -877,8 +941,158 @@ textarea { resize: vertical; min-height: 80px; }
   </div>
 </div>
 
+<!-- ════ NOTAS (NOTION-STYLE) ════ -->
+<div class="section" id="section-notes">
+  <div class="topbar">
+    <div><div class="page-title">📝 Bloco de Notas</div><div class="page-subtitle">Organize ideias, textos e mapas mentais</div></div>
+    <div class="topbar-right">
+      <span class="badge badge-blue" id="notes-count-badge">0 notas</span>
+      <button class="btn btn-primary" onclick="newNote()" style="padding:8px 14px;font-size:12px">＋ Nova Nota</button>
+    </div>
+  </div>
+
+  <div class="notes-layout">
+    <!-- SIDEBAR DE NOTAS -->
+    <div class="notes-sidebar">
+      <div class="notes-sidebar-header">
+        <div class="notes-sidebar-title">Notas</div>
+        <div style="display:flex;gap:4px">
+          <button class="toolbar-btn" onclick="newNote()" title="Nova nota" style="color:var(--accent)">＋</button>
+        </div>
+      </div>
+      <!-- Filtro de tags -->
+      <div style="padding:8px;border-bottom:1px solid var(--border)">
+        <input id="notes-search" placeholder="🔍 Buscar notas..." style="font-size:12px;padding:7px 10px;border-radius:8px" oninput="filterNotes()">
+      </div>
+      <div style="padding:8px;display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--border)">
+        <button class="note-meta-tag selected" id="nf-all" onclick="setNoteFilter('all',this)">Todas</button>
+        <button class="note-meta-tag" id="nf-ideia" onclick="setNoteFilter('💡 Ideia',this)">💡</button>
+        <button class="note-meta-tag" id="nf-plano" onclick="setNoteFilter('📋 Plano',this)">📋</button>
+        <button class="note-meta-tag" id="nf-ref" onclick="setNoteFilter('📚 Ref',this)">📚</button>
+        <button class="note-meta-tag" id="nf-diario" onclick="setNoteFilter('🗓 Diário',this)">🗓</button>
+      </div>
+      <div class="notes-list" id="notes-list">
+        <div class="empty-state" style="padding:24px 16px"><div class="empty-state-icon" style="font-size:28px">📝</div>Nenhuma nota ainda</div>
+      </div>
+    </div>
+
+    <!-- EDITOR -->
+    <div class="notes-editor" id="notes-editor-panel">
+      <div class="notes-empty" id="notes-empty-state">
+        <div class="notes-empty-icon">📝</div>
+        <div style="font-size:14px;font-weight:600">Selecione ou crie uma nota</div>
+        <div style="font-size:12px;color:var(--text3)">Organize seus pensamentos, planos e textos</div>
+        <button class="btn btn-primary" onclick="newNote()" style="margin-top:8px">＋ Criar primeira nota</button>
+      </div>
+
+      <div id="notes-editor-active" style="display:none;flex-direction:column;height:100%">
+        <!-- Toolbar -->
+        <div class="notes-toolbar">
+          <button class="toolbar-btn" onclick="noteFormat('bold')" title="Negrito"><b>B</b></button>
+          <button class="toolbar-btn" onclick="noteFormat('italic')" title="Itálico"><i>I</i></button>
+          <button class="toolbar-btn" onclick="noteFormat('underline')" title="Sublinhado"><u>U</u></button>
+          <div class="toolbar-sep"></div>
+          <button class="toolbar-btn" onclick="insertNoteBlock('h1')" title="Título H1" style="font-size:11px;font-weight:800">H1</button>
+          <button class="toolbar-btn" onclick="insertNoteBlock('h2')" title="Título H2" style="font-size:11px;font-weight:700">H2</button>
+          <button class="toolbar-btn" onclick="insertNoteBlock('h3')" title="Título H3" style="font-size:11px;font-weight:600">H3</button>
+          <div class="toolbar-sep"></div>
+          <button class="toolbar-btn" onclick="insertNoteBlock('bullet')" title="Lista">•</button>
+          <button class="toolbar-btn" onclick="insertNoteBlock('numbered')" title="Lista numerada">1.</button>
+          <button class="toolbar-btn" onclick="insertNoteBlock('check')" title="Checklist">☑</button>
+          <button class="toolbar-btn" onclick="insertNoteBlock('quote')" title="Citação">❝</button>
+          <button class="toolbar-btn" onclick="insertNoteBlock('divider')" title="Divisor">—</button>
+          <div class="toolbar-sep"></div>
+          <button class="toolbar-btn" onclick="insertNoteBlock('code')" title="Código" style="font-family:'DM Mono',monospace">&lt;/&gt;</button>
+          <div class="toolbar-sep"></div>
+          <!-- Tags -->
+          <select id="note-tag-select" style="padding:4px 8px;font-size:11px;border-radius:6px;height:30px;width:auto" onchange="setCurrentNoteTag(this.value)">
+            <option value="💡 Ideia">💡 Ideia</option>
+            <option value="📋 Plano">📋 Plano</option>
+            <option value="📚 Ref">📚 Ref</option>
+            <option value="🗓 Diário">🗓 Diário</option>
+            <option value="⚡ Rápida">⚡ Rápida</option>
+            <option value="🎯 Meta">🎯 Meta</option>
+            <option value="💼 Negócio">💼 Negócio</option>
+          </select>
+          <div style="flex:1"></div>
+          <button class="toolbar-btn" onclick="deleteCurrentNote()" title="Deletar nota" style="color:var(--accent5)">🗑</button>
+        </div>
+
+        <!-- Emoji + Título -->
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 24px 0">
+          <div id="note-emoji-picker" style="font-size:32px;cursor:pointer;padding:4px;border-radius:8px;transition:background 0.15s" onclick="cycleNoteEmoji()" title="Mudar emoji">📝</div>
+          <input class="note-title-input" id="note-title-input" placeholder="Título da nota..." oninput="autoSaveNote()" style="padding:0;flex:1">
+        </div>
+
+        <!-- Meta bar -->
+        <div class="note-meta-bar">
+          <span id="note-meta-date" style="font-size:11px;color:var(--text3);font-family:'DM Mono',monospace"></span>
+          <span id="note-meta-words" style="font-size:11px;color:var(--text3)"></span>
+        </div>
+
+        <!-- Editor body -->
+        <div class="note-body" style="flex:1;overflow:hidden">
+          <textarea class="note-editor-area" id="note-editor-area" placeholder="Comece a escrever...
+  
+Use a barra acima para formatar. Exemplos:
+# Título grande
+## Subtítulo
+- Item de lista
+[ ] Tarefa
+> Citação
+---" oninput="autoSaveNote()"></textarea>
+        </div>
+
+        <div class="notes-word-count">
+          <span id="note-wc-left" style="color:var(--text3)">—</span>
+          <span id="note-wc-right" style="color:var(--text3)">Salvo automaticamente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </main>
 </div><!-- #app -->
+
+<!-- ════ SLEEP MODE OVERLAY ════ -->
+<div id="sleep-overlay">
+  <canvas id="money-canvas"></canvas>
+  <div class="sleep-bg"></div>
+  <div class="sleep-stars" id="sleep-stars"></div>
+  <div class="sleep-moon">🌙</div>
+
+  <button class="sleep-close-btn" onclick="closeSleepMode()">✕</button>
+
+  <div class="sleep-content">
+    <div class="sleep-title">MODO SONO · LIFE OS</div>
+    <div class="sleep-timer-display" id="sleep-timer-display">30:00</div>
+    <div class="sleep-phase" id="sleep-phase">relaxando...</div>
+
+    <div class="sleep-affirmation">
+      <div class="sleep-affirmation-text" id="sleep-affirmation-text">Enquanto você descansa, o dinheiro trabalha para você</div>
+      <div class="sleep-affirmation-sub">💰 Seus ativos estão crescendo agora</div>
+    </div>
+
+    <div class="sleep-breath-guide">
+      <div class="sleep-breath-dot"></div>
+      <div class="sleep-breath-text">RESPIRE FUNDO · RELAXE · CONFIE</div>
+      <div class="sleep-breath-dot" style="animation-delay:2s"></div>
+    </div>
+
+    <div class="sleep-progress-bar" style="margin-top:32px">
+      <div class="sleep-progress-fill" id="sleep-progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="sleep-controls-bar">
+    <button class="sleep-ctrl-btn" onclick="setSleepTimer(15)">15 min</button>
+    <button class="sleep-ctrl-btn" onclick="setSleepTimer(30)">30 min</button>
+    <button class="sleep-ctrl-btn" onclick="setSleepTimer(45)">45 min</button>
+    <button class="sleep-ctrl-btn" onclick="setSleepTimer(60)">60 min</button>
+    <button class="sleep-ctrl-btn" id="sleep-toggle-money" onclick="toggleMoneyRain()" style="border-color:rgba(100,255,150,0.3);color:rgba(100,255,150,0.6)">💰 Dinheiro ON</button>
+  </div>
+</div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -911,6 +1125,7 @@ const state = {
   chatHistory: [], hourValue: 0,
   routineTasks: [], routineStreak: 0, routineCalendar: {}, // date string -> { completed: [] }
   medSessions: 0,
+  notes: [], // Notion-style notes
 };
 
 function loadState() {
@@ -2033,6 +2248,365 @@ function appendTyping() {
   area.scrollTop = area.scrollHeight;
 }
 
+
+// ═══════════════════════════════════════════
+// NOTES (NOTION-STYLE)
+// ═══════════════════════════════════════════
+let currentNoteId = null;
+let noteAutoSaveTimer = null;
+let noteFilterTag = 'all';
+let noteSearchQuery = '';
+const noteEmojis = ['📝','💡','📋','🚀','🎯','💼','🔮','⚡','🌟','🧠','📖','✦','🗺','💎','🔑'];
+let noteEmojiIdx = 0;
+
+function newNote() {
+  const note = {
+    id: Date.now(),
+    title: '',
+    body: '',
+    tag: '💡 Ideia',
+    emoji: '📝',
+    createdAt: new Date().toLocaleDateString('pt-BR'),
+    updatedAt: new Date().toISOString()
+  };
+  state.notes.unshift(note);
+  saveState();
+  openNote(note.id);
+  renderNotesList();
+  document.getElementById('note-title-input').focus();
+}
+
+function openNote(id) {
+  const note = state.notes.find(n => n.id === id);
+  if (!note) return;
+  currentNoteId = id;
+
+  document.getElementById('notes-empty-state').style.display = 'none';
+  const editorActive = document.getElementById('notes-editor-active');
+  editorActive.style.display = 'flex';
+
+  document.getElementById('note-emoji-picker').textContent = note.emoji || '📝';
+  document.getElementById('note-title-input').value = note.title || '';
+  document.getElementById('note-editor-area').value = note.body || '';
+  document.getElementById('note-tag-select').value = note.tag || '💡 Ideia';
+
+  const d = new Date(note.updatedAt || Date.now());
+  document.getElementById('note-meta-date').textContent = d.toLocaleDateString('pt-BR', { day:'numeric', month:'short', year:'numeric' });
+  updateNoteWordCount();
+  renderNotesList();
+}
+
+function autoSaveNote() {
+  clearTimeout(noteAutoSaveTimer);
+  noteAutoSaveTimer = setTimeout(() => {
+    saveCurrentNote();
+    document.getElementById('note-wc-right').textContent = 'Salvo ✓';
+    setTimeout(() => { document.getElementById('note-wc-right').textContent = 'Salvo automaticamente'; }, 2000);
+  }, 600);
+  updateNoteWordCount();
+}
+
+function saveCurrentNote() {
+  if (!currentNoteId) return;
+  const note = state.notes.find(n => n.id === currentNoteId);
+  if (!note) return;
+  note.title = document.getElementById('note-title-input').value.trim() || 'Sem título';
+  note.body = document.getElementById('note-editor-area').value;
+  note.tag = document.getElementById('note-tag-select').value;
+  note.emoji = document.getElementById('note-emoji-picker').textContent;
+  note.updatedAt = new Date().toISOString();
+  saveState();
+  renderNotesList();
+}
+
+function updateNoteWordCount() {
+  const body = document.getElementById('note-editor-area').value;
+  const words = body.trim() ? body.trim().split(/\s+/).length : 0;
+  const chars = body.length;
+  document.getElementById('note-wc-left').textContent = `${words} palavras · ${chars} caracteres`;
+  document.getElementById('note-meta-words').textContent = `~${Math.ceil(words/200)} min leitura`;
+}
+
+function setCurrentNoteTag(tag) {
+  if (!currentNoteId) return;
+  const note = state.notes.find(n => n.id === currentNoteId);
+  if (note) { note.tag = tag; saveState(); renderNotesList(); }
+}
+
+function cycleNoteEmoji() {
+  noteEmojiIdx = (noteEmojiIdx + 1) % noteEmojis.length;
+  document.getElementById('note-emoji-picker').textContent = noteEmojis[noteEmojiIdx];
+  autoSaveNote();
+}
+
+function deleteCurrentNote() {
+  if (!currentNoteId) return;
+  if (!confirm('Deletar esta nota?')) return;
+  state.notes = state.notes.filter(n => n.id !== currentNoteId);
+  currentNoteId = null;
+  document.getElementById('notes-editor-active').style.display = 'none';
+  document.getElementById('notes-empty-state').style.display = 'flex';
+  saveState(); renderNotesList();
+  showToast('Nota deletada', '🗑');
+}
+
+function setNoteFilter(tag, el) {
+  noteFilterTag = tag;
+  document.querySelectorAll('.note-meta-tag').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  renderNotesList();
+}
+
+function filterNotes() {
+  noteSearchQuery = document.getElementById('notes-search').value.toLowerCase();
+  renderNotesList();
+}
+
+function renderNotesList() {
+  document.getElementById('notes-count-badge').textContent = state.notes.length + ' notas';
+  let filtered = state.notes;
+  if (noteFilterTag !== 'all') filtered = filtered.filter(n => n.tag === noteFilterTag);
+  if (noteSearchQuery) filtered = filtered.filter(n =>
+    (n.title||'').toLowerCase().includes(noteSearchQuery) ||
+    (n.body||'').toLowerCase().includes(noteSearchQuery)
+  );
+
+  const list = document.getElementById('notes-list');
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty-state" style="padding:20px 12px;font-size:12px"><div style="font-size:24px;margin-bottom:8px">📝</div>Nenhuma nota encontrada</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(n => {
+    const preview = (n.body || '').replace(/\n/g,' ').slice(0, 60) + (n.body && n.body.length > 60 ? '...' : '');
+    const isActive = n.id === currentNoteId;
+    return `<div class="note-item ${isActive ? 'active' : ''}" onclick="openNote(${n.id})">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <span style="font-size:18px;flex-shrink:0">${n.emoji||'📝'}</span>
+        <div style="flex:1;min-width:0">
+          <div class="note-item-title">${n.title || 'Sem título'}</div>
+          ${preview ? `<div class="note-item-preview">${preview}</div>` : ''}
+          <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+            <span style="font-size:9px;padding:2px 6px;border-radius:4px;background:var(--surface3);color:var(--text3);font-family:'DM Mono',monospace">${n.tag||''}</span>
+            <span class="note-item-date">${n.createdAt||''}</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function noteFormat(cmd) {
+  const area = document.getElementById('note-editor-area');
+  const start = area.selectionStart, end = area.selectionEnd;
+  const sel = area.value.substring(start, end);
+  const markers = { bold: '**', italic: '_', underline: '__' };
+  const m = markers[cmd];
+  const newText = area.value.substring(0, start) + m + sel + m + area.value.substring(end);
+  area.value = newText;
+  area.selectionStart = start + m.length;
+  area.selectionEnd = end + m.length;
+  area.focus();
+  autoSaveNote();
+}
+
+function insertNoteBlock(type) {
+  const area = document.getElementById('note-editor-area');
+  const pos = area.selectionStart;
+  const before = area.value.substring(0, pos);
+  const after = area.value.substring(pos);
+  const needsNewline = before.length > 0 && !before.endsWith('\n');
+  const prefix = needsNewline ? '\n' : '';
+  const blocks = {
+    h1: '# ', h2: '## ', h3: '### ',
+    bullet: '- ',
+    numbered: '1. ',
+    check: '[ ] ',
+    quote: '> ',
+    divider: '\n---\n',
+    code: '```\n\n```'
+  };
+  const insert = prefix + blocks[type];
+  area.value = before + insert + after;
+  const newPos = pos + insert.length;
+  area.selectionStart = newPos;
+  area.selectionEnd = newPos;
+  area.focus();
+  autoSaveNote();
+}
+
+// ═══════════════════════════════════════════
+// SLEEP MODE
+// ═══════════════════════════════════════════
+let sleepTimerSeconds = 30 * 60, sleepTimerTotal = 30 * 60;
+let sleepRunning = false, sleepTimer = null, sleepAffirmationTimer = null;
+let sleepMoneyActive = true, sleepMoneyAnimFrame = null;
+let sleepCanvas, sleepCtx, sleepMoneyParticles = [];
+
+const sleepAffirmations = [
+  'Enquanto você descansa, o dinheiro trabalha para você',
+  'Cada hora de sono é um investimento no seu sucesso amanhã',
+  'Seu subconsciente está processando oportunidades agora',
+  'Descansando bem, você decide melhor e ganha mais',
+  'R$ 10.000 sendo gerados enquanto você dorme profundamente',
+  'Seus sistemas automáticos estão trabalhando por você agora',
+  'O sono de qualidade multiplica sua produtividade amanhã',
+  'Abundância flui enquanto você relaxa e confia',
+  'Sua mente se recarrega para conquistar amanhã',
+  'Cada respiração te aproxima de um sono reparador'
+];
+
+function openSleepMode() {
+  document.getElementById('sleep-overlay').classList.add('active');
+  createSleepStars();
+  initMoneyCanvas();
+  if (!sleepRunning) startSleepTimer();
+  rotateSleepAffirmation();
+  sleepAffirmationTimer = setInterval(rotateSleepAffirmation, 8000);
+  if (sleepMoneyActive) animateMoneyRain();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSleepMode() {
+  document.getElementById('sleep-overlay').classList.remove('active');
+  clearInterval(sleepTimer); clearInterval(sleepAffirmationTimer);
+  cancelAnimationFrame(sleepMoneyAnimFrame);
+  sleepRunning = false;
+  sleepTimerSeconds = sleepTimerTotal;
+  updateSleepDisplay();
+  document.getElementById('sleep-progress-fill').style.width = '0%';
+  document.body.style.overflow = '';
+}
+
+function setSleepTimer(mins) {
+  sleepTimerTotal = mins * 60;
+  sleepTimerSeconds = sleepTimerTotal;
+  clearInterval(sleepTimer);
+  sleepRunning = false;
+  updateSleepDisplay();
+  document.getElementById('sleep-progress-fill').style.width = '0%';
+  startSleepTimer();
+}
+
+function startSleepTimer() {
+  clearInterval(sleepTimer);
+  sleepRunning = true;
+  sleepTimer = setInterval(() => {
+    if (sleepTimerSeconds > 0) {
+      sleepTimerSeconds--;
+      updateSleepDisplay();
+      const pct = (1 - sleepTimerSeconds / sleepTimerTotal) * 100;
+      document.getElementById('sleep-progress-fill').style.width = pct + '%';
+    } else {
+      clearInterval(sleepTimer);
+      sleepRunning = false;
+      document.getElementById('sleep-phase').textContent = 'sono profundo 🌙';
+    }
+  }, 1000);
+}
+
+function updateSleepDisplay() {
+  const m = Math.floor(sleepTimerSeconds / 60), s = sleepTimerSeconds % 60;
+  document.getElementById('sleep-timer-display').textContent =
+    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  const mins = Math.floor(sleepTimerSeconds / 60);
+  if (mins > 20) document.getElementById('sleep-phase').textContent = 'relaxando...';
+  else if (mins > 10) document.getElementById('sleep-phase').textContent = 'adormecendo...';
+  else if (mins > 3) document.getElementById('sleep-phase').textContent = 'sono leve...';
+  else document.getElementById('sleep-phase').textContent = 'sono profundo 🌙';
+}
+
+function rotateSleepAffirmation() {
+  const el = document.getElementById('sleep-affirmation-text');
+  el.style.opacity = '0';
+  setTimeout(() => {
+    const idx = Math.floor(Math.random() * sleepAffirmations.length);
+    el.textContent = sleepAffirmations[idx];
+    el.style.opacity = '1';
+  }, 500);
+}
+
+function createSleepStars() {
+  const container = document.getElementById('sleep-stars');
+  container.innerHTML = '';
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    star.className = 'sleep-star';
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*100}%; left:${Math.random()*100}%;
+      --dur:${2+Math.random()*4}s; --delay:${Math.random()*4}s;
+    `;
+    container.appendChild(star);
+  }
+}
+
+function initMoneyCanvas() {
+  sleepCanvas = document.getElementById('money-canvas');
+  sleepCanvas.width = window.innerWidth;
+  sleepCanvas.height = window.innerHeight;
+  sleepCtx = sleepCanvas.getContext('2d');
+  sleepMoneyParticles = Array.from({ length: 35 }, () => createMoneyParticle());
+}
+
+function createMoneyParticle() {
+  const symbols = ['💵','💶','💴','💰','💳','$','R$','€','£'];
+  return {
+    x: Math.random() * window.innerWidth,
+    y: -60 - Math.random() * window.innerHeight,
+    vy: 0.4 + Math.random() * 0.8,
+    vx: (Math.random() - 0.5) * 0.4,
+    rotation: Math.random() * 360,
+    rotSpeed: (Math.random() - 0.5) * 1.5,
+    symbol: symbols[Math.floor(Math.random() * symbols.length)],
+    size: 14 + Math.random() * 14,
+    opacity: 0.3 + Math.random() * 0.4,
+    scale: 0.6 + Math.random() * 0.8
+  };
+}
+
+function animateMoneyRain() {
+  if (!sleepMoneyActive || !sleepCtx) return;
+  sleepCtx.clearRect(0, 0, sleepCanvas.width, sleepCanvas.height);
+  sleepMoneyParticles.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.rotation += p.rotSpeed;
+    if (p.y > sleepCanvas.height + 60) {
+      p.y = -60; p.x = Math.random() * sleepCanvas.width;
+    }
+    sleepCtx.save();
+    sleepCtx.globalAlpha = p.opacity;
+    sleepCtx.translate(p.x, p.y);
+    sleepCtx.rotate((p.rotation * Math.PI) / 180);
+    sleepCtx.scale(p.scale, p.scale);
+    sleepCtx.font = `${p.size}px serif`;
+    sleepCtx.fillStyle = '#4ade80';
+    sleepCtx.fillText(p.symbol, -p.size/2, p.size/2);
+    sleepCtx.restore();
+  });
+  sleepMoneyAnimFrame = requestAnimationFrame(animateMoneyRain);
+}
+
+function toggleMoneyRain() {
+  sleepMoneyActive = !sleepMoneyActive;
+  const btn = document.getElementById('sleep-toggle-money');
+  if (sleepMoneyActive) {
+    btn.textContent = '💰 Dinheiro ON';
+    btn.style.color = 'rgba(100,255,150,0.6)';
+    btn.style.borderColor = 'rgba(100,255,150,0.3)';
+    animateMoneyRain();
+  } else {
+    btn.textContent = '💰 Dinheiro OFF';
+    btn.style.color = 'rgba(255,255,255,0.3)';
+    btn.style.borderColor = 'rgba(255,255,255,0.1)';
+    cancelAnimationFrame(sleepMoneyAnimFrame);
+    if (sleepCtx) sleepCtx.clearRect(0, 0, sleepCanvas.width, sleepCanvas.height);
+  }
+}
+
+window.addEventListener('resize', () => {
+  if (sleepCanvas) { sleepCanvas.width = window.innerWidth; sleepCanvas.height = window.innerHeight; }
+});
+
 function removeTyping() { const el = document.getElementById('typing-indicator'); if (el) el.remove(); }
 
 // ═══════════════════════════════════════════
@@ -2050,6 +2624,7 @@ function initApp() {
   renderTimeLog();
   updatePomDisplay();
   renderRoutine();
+  renderNotesList();
   document.getElementById('pom-sessions').textContent = state.pomodoroSessions;
   document.getElementById('pom-minutes').textContent = state.pomodoroMinutes;
   medSessions = state.medSessions || 0;
@@ -2078,4 +2653,4 @@ function initApp() {
 }
 </script>
 </body>
-                                                                           </html>
+  </html>
