@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LIFE OS — Sistema Operacional da Vida</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js">
@@ -37,7 +38,6 @@ document.addEventListener('click', (e) => {
 
 </script>
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #080c14;
@@ -709,247 +709,108 @@ canvas { border-radius: 8px; }
 /* TEXTAREA */
 textarea { resize: vertical; min-height: 80px; }
 
-/* ROTINA */
-.routine-header {
-  background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,58,237,0.1));
-  border: 1px solid var(--border2);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 20px;
+/* ═══════════════════════════════════════════
+   LOGIN & AUTH
+   ═══════════════════════════════════════════ */
+#login-screen {
+  position: fixed; inset: 0; z-index: 9999; background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
 }
-
-.routine-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+#login-screen.hidden { display: none; }
+.login-box {
+  background: var(--surface); border: 1px solid var(--border2); border-radius: 24px;
+  padding: 48px; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
-
-.routine-stats {
-  display: flex;
-  gap: 24px;
-  margin-top: 16px;
+.login-logo {
+  width: 64px; height: 64px; background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 16px; display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 24px; color: white;
+  margin: 0 auto 24px; box-shadow: var(--glow);
 }
-
-.routine-stat {
-  flex: 1;
+.login-title {
+  font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 700;
+  text-align: center; margin-bottom: 8px;
 }
-
-.routine-stat-value {
-  font-family: 'Syne', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--accent3);
+.login-subtitle { text-align: center; color: var(--text2); font-size: 14px; margin-bottom: 32px; }
+.login-btn {
+  width: 100%; padding: 16px; border: 1px solid var(--border2); background: var(--surface2);
+  color: var(--text); border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  transition: all 0.2s; margin-bottom: 12px;
 }
-
-.routine-stat-label {
-  font-size: 11px;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 4px;
+.login-btn:hover { background: var(--surface3); border-color: var(--accent); }
+.login-divider {
+  text-align: center; color: var(--text3); font-size: 12px; margin: 24px 0; position: relative;
 }
-
-.time-blocks {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 20px;
+.login-divider::before, .login-divider::after {
+  content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: var(--border);
 }
-
-.time-block {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  display: grid;
-  grid-template-columns: 120px 1fr auto;
-  gap: 16px;
-  align-items: center;
-  transition: all 0.2s;
+.login-divider::before { left: 0; }
+.login-divider::after { right: 0; }
+.input-group { margin-bottom: 16px; }
+.input-label { display: block; font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 8px; }
+.login-input {
+  width: 100%; padding: 12px 16px; background: var(--surface3); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text); font-size: 14px; transition: all 0.2s;
 }
-
-.time-block:hover {
-  border-color: var(--border2);
-  transform: translateX(4px);
+.login-input:focus { outline: none; border-color: var(--accent); background: var(--surface2); }
+.login-toggle { text-align: center; color: var(--text3); font-size: 13px; margin-top: 24px; cursor: pointer; }
+.login-toggle span { color: var(--accent); font-weight: 500; }
+.login-error {
+  background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--accent5);
+  padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; display: none;
 }
+.login-error.show { display: block; }
+#app { display: none; }
+#app.show { display: block; }
 
-.time-block.completed {
-  opacity: 0.6;
-  background: var(--surface2);
-}
-
-.time-block.completed .time-label {
-  text-decoration: line-through;
-}
-
-.time-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--accent);
-}
-
-.time-content h4 {
-  font-family: 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.time-content p {
-  font-size: 13px;
-  color: var(--text2);
-}
-
-.time-tag {
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.tag-atlas { background: rgba(0,212,255,0.1); color: var(--accent); }
-.tag-akasha { background: rgba(124,58,237,0.1); color: var(--accent2); }
-.tag-admin { background: rgba(245,158,11,0.1); color: var(--accent4); }
-
-.check-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  border: 1px solid var(--border2);
-  background: transparent;
-  color: var(--text3);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.check-btn:hover {
-  background: rgba(16,185,129,0.1);
-  border-color: var(--accent3);
-  color: var(--accent3);
-}
-
-.time-block.completed .check-btn {
-  background: rgba(16,185,129,0.2);
-  border-color: var(--accent3);
-  color: var(--accent3);
-}
-
-.weekly-revenue {
-  background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(0,212,255,0.05));
-  border: 1px solid rgba(16,185,129,0.2);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 20px;
-}
-
-.revenue-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--text);
-}
-
-.revenue-display {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.revenue-current {
-  font-family: 'Syne', sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  color: var(--accent3);
-  letter-spacing: -1px;
-}
-
-.revenue-goal {
-  font-size: 14px;
-  color: var(--text3);
-}
-
-.revenue-progress {
-  margin-top: 12px;
-  height: 8px;
-  background: var(--surface2);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.revenue-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent3), var(--accent));
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
-
-.add-revenue-form {
-  margin-top: 16px;
-  display: flex;
-  gap: 8px;
-}
-
-.add-revenue-form input {
-  flex: 1;
-  padding: 10px 12px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text);
-  font-size: 14px;
-}
-
-.add-revenue-form button {
-  padding: 10px 20px;
-  background: rgba(16,185,129,0.2);
-  border: 1px solid rgba(16,185,129,0.3);
-  border-radius: 8px;
-  color: var(--accent3);
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-
-.add-revenue-form button:hover {
-  background: rgba(16,185,129,0.3);
-}
-
-/* Resto dos estilos do LifeOS original... */
-
-
-/* USER AVATAR & LOGOUT */
 .user-avatar {
-  width: 36px; height: 36px; border-radius: 10px;
-  margin-top: auto; cursor: pointer; position: relative;
+  width: 36px; height: 36px; border-radius: 10px; margin-top: auto; cursor: pointer; position: relative;
 }
-.user-avatar img {
-  width: 100%; height: 100%; border-radius: 10px; object-fit: cover;
-}
+.user-avatar img { width: 100%; height: 100%; border-radius: 10px; object-fit: cover; }
 .logout-menu {
-  position: absolute; bottom: 48px; left: 68px;
-  background: var(--surface2); border: 1px solid var(--border2);
-  border-radius: 12px; padding: 8px; display: none;
+  position: absolute; bottom: 48px; left: 68px; background: var(--surface2);
+  border: 1px solid var(--border2); border-radius: 12px; padding: 8px; display: none;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 200;
 }
 .logout-menu.show { display: block; }
 .logout-item {
-  padding: 10px 16px; color: var(--text2); cursor: pointer;
-  border-radius: 8px; font-size: 13px; white-space: nowrap; transition: all 0.2s;
+  padding: 10px 16px; color: var(--text2); cursor: pointer; border-radius: 8px;
+  font-size: 13px; white-space: nowrap; transition: all 0.2s;
 }
 .logout-item:hover { background: var(--surface3); color: var(--text); }
 .logout-item.danger:hover { background: rgba(239,68,68,0.1); color: var(--accent5); }
-#app { display: none; }
-#app.show { display: block; }
+
+/* ROTINA */
+.routine-header {
+  background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,58,237,0.1));
+  border: 1px solid var(--border2); border-radius: 16px; padding: 24px; margin-bottom: 20px;
+}
+.time-blocks { display: grid; gap: 12px; margin-bottom: 20px; }
+.time-block {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+  display: grid; grid-template-columns: 120px 1fr auto auto; gap: 16px; align-items: center;
+  transition: all 0.2s;
+}
+.time-block:hover { border-color: var(--border2); transform: translateX(4px); }
+.time-block.completed { opacity: 0.6; background: var(--surface2); }
+.time-block.completed .time-label { text-decoration: line-through; }
+.time-label { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--accent); }
+.time-tag { padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+.tag-atlas { background: rgba(0,212,255,0.1); color: var(--accent); }
+.tag-akasha { background: rgba(124,58,237,0.1); color: var(--accent2); }
+.tag-admin { background: rgba(245,158,11,0.1); color: var(--accent4); }
+.check-btn {
+  width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border2);
+  background: transparent; color: var(--text3); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+}
+.check-btn:hover { background: rgba(16,185,129,0.1); border-color: var(--accent3); color: var(--accent3); }
+.time-block.completed .check-btn { background: rgba(16,185,129,0.2); border-color: var(--accent3); color: var(--accent3); }
+
+@media (max-width: 768px) {
+  .time-block { grid-template-columns: 1fr; gap: 8px; }
+}
 
 </style>
 </head>
@@ -1011,7 +872,7 @@ textarea { resize: vertical; min-height: 80px; }
   </div>
 </div>
 
-<!-- MAIN APP WRAPPER -->
+<!-- MAIN APP -->
 <div id="app">
 
 
@@ -1729,7 +1590,7 @@ textarea { resize: vertical; min-height: 80px; }
 <script>
 
 // ═══════════════════════════════════════════
-// FIREBASE CONFIG & AUTHENTICATION
+// FIREBASE CONFIG & AUTH
 // ═══════════════════════════════════════════
 const firebaseConfig = {
   apiKey: "AIzaSyB6Z2AV1P2fHudwK9d5Giwvl8xjrqvqDNk",
@@ -1766,8 +1627,7 @@ function showApp() {
   document.getElementById('app').classList.add('show');
   
   const displayName = currentUser.displayName || currentUser.email.split('@')[0];
-  const greetingEl = document.getElementById('user-greeting');
-  if (greetingEl) greetingEl.textContent = `Bem-vindo, ${displayName}`;
+  document.getElementById('user-greeting').textContent = `Bem-vindo, ${displayName}`;
   
   if (currentUser.photoURL) {
     document.getElementById('user-avatar-img').src = currentUser.photoURL;
@@ -1777,10 +1637,10 @@ function showApp() {
   }
   
   const today = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
-  const dateBadge = document.getElementById('date-badge');
-  if (dateBadge) dateBadge.textContent = today;
-  const routineDate = document.getElementById('routine-date');
-  if (routineDate) routineDate.textContent = today;
+  document.getElementById('date-badge').textContent = today;
+  if (document.getElementById('routine-date')) {
+    document.getElementById('routine-date').textContent = today;
+  }
   
   initRoutine();
 }
@@ -1806,11 +1666,7 @@ async function loginWithEmail() {
   try {
     await auth.signInWithEmailAndPassword(email, password);
   } catch (error) {
-    const msg = error.code === 'auth/wrong-password' ? 'Senha incorreta' : 
-                error.code === 'auth/user-not-found' ? 'Usuário não encontrado' : 
-                error.code === 'auth/invalid-email' ? 'Email inválido' :
-                error.message;
-    showError('Erro: ' + msg);
+    showError('Erro: ' + (error.code === 'auth/wrong-password' ? 'Senha incorreta' : error.code === 'auth/user-not-found' ? 'Usuário não encontrado' : error.message));
   }
 }
 
@@ -1834,11 +1690,7 @@ async function signupWithEmail() {
     await userCredential.user.updateProfile({ displayName: name });
     showToast('Conta criada com sucesso!', '✓');
   } catch (error) {
-    const msg = error.code === 'auth/email-already-in-use' ? 'Email já cadastrado' :
-                error.code === 'auth/invalid-email' ? 'Email inválido' :
-                error.code === 'auth/weak-password' ? 'Senha muito fraca' :
-                error.message;
-    showError('Erro: ' + msg);
+    showError('Erro: ' + (error.code === 'auth/email-already-in-use' ? 'Email já cadastrado' : error.message));
   }
 }
 
@@ -1865,22 +1717,18 @@ function toggleAuthMode() {
 
 function showError(message) {
   const errorEl = document.getElementById('login-error');
-  if (errorEl) {
-    errorEl.textContent = message;
-    errorEl.classList.add('show');
-    setTimeout(() => errorEl.classList.remove('show'), 5000);
-  }
+  errorEl.textContent = message;
+  errorEl.classList.add('show');
+  setTimeout(() => errorEl.classList.remove('show'), 5000);
 }
 
 function toggleLogoutMenu() {
-  const menu = document.getElementById('logout-menu');
-  if (menu) menu.classList.toggle('show');
+  document.getElementById('logout-menu').classList.toggle('show');
 }
 
 function showUserProfile() {
   toggleLogoutMenu();
-  const email = currentUser?.email || 'Não logado';
-  showToast('Perfil: ' + email, '👤');
+  showToast('Perfil: ' + (currentUser?.email || 'Não logado'), '👤');
 }
 
 // ═══════════════════════════════════════════
@@ -1908,7 +1756,6 @@ async function loadUserDataFromFirestore() {
       renderHabits();
       renderGoals();
       renderTimeLog();
-      updatePomDisplay();
       updateRoutine();
     }
   } catch (error) {
@@ -1926,17 +1773,8 @@ async function saveUserDataToFirestore() {
   }
 }
 
-// Manter saveState original mas adicionar sync Firebase
-const originalSaveState = function() {
-  if (typeof(Storage) !== "undefined") {
-    localStorage.setItem('lifeOsState', JSON.stringify(state));
-  }
-};
-
-function saveState() {
-  originalSaveState();
-  saveUserDataToFirestore();
-}
+// Substituir saveState por saveUserDataToFirestore
+const saveState = saveUserDataToFirestore;
 
 // ═══════════════════════════════════════════
 // ROTINA PERSONALIZADA
@@ -1998,7 +1836,7 @@ function toggleTask(id) {
   if (task) {
     task.completed = !task.completed;
     renderRoutine();
-    saveState();
+    saveUserDataToFirestore();
     
     if (task.completed) {
       showToast(task.title + ' concluída! 🎯', '✓');
@@ -2021,13 +1859,8 @@ function updateRoutineStats() {
 }
 
 function addRevenue() {
-  const amountEl = document.getElementById('revenue-amount');
-  const sourceEl = document.getElementById('revenue-source');
-  
-  if (!amountEl || !sourceEl) return;
-  
-  const amount = parseFloat(amountEl.value);
-  const source = sourceEl.value.trim();
+  const amount = parseFloat(document.getElementById('revenue-amount').value);
+  const source = document.getElementById('revenue-source').value.trim();
   
   if (!amount || amount <= 0) {
     showToast('Digite um valor válido', '⚠️');
@@ -2047,11 +1880,11 @@ function addRevenue() {
     date: new Date().toISOString()
   });
   
-  amountEl.value = '';
-  sourceEl.value = '';
+  document.getElementById('revenue-amount').value = '';
+  document.getElementById('revenue-source').value = '';
   
   updateRevenueDisplay();
-  saveState();
+  saveUserDataToFirestore();
   showToast(`+R$ ${amount.toFixed(2)} adicionado! 💰`, '✓');
 }
 
@@ -2077,7 +1910,7 @@ function updateRoutine() {
 }
 
 // ═══════════════════════════════════════════
-// CÓDIGO ORIGINAL DO LIFEOS
+// ORIGINAL STATE + FUNCTIONS
 // ═══════════════════════════════════════════
 
 // ═══════════════════════════════════════════
@@ -2898,4 +2731,4 @@ document.addEventListener('click', (e) => {
 
 </script>
 </body>
-  </html>
+            </html>
